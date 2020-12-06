@@ -1,0 +1,36 @@
+\begin{thebibliography}{1}
+
+\bibitem{chang1979least}
+Yow-Yieh Chang.
+\newblock Least-index resolution of degeneracy in linear complementarity
+  problems.
+\newblock Technical report, STANFORD UNIV CA DEPT OF OPERATIONS RESEARCH, 1979.
+
+\bibitem{wikipediacontributors_2020_kleeminty}
+Wikipedia Contributors.
+\newblock Klee–minty cube, 11 2020.
+
+\bibitem{dantzig1951maximization}
+George~B Dantzig.
+\newblock Maximization of a linear function of variables subject to linear
+  inequalities.
+\newblock {\em Activity analysis of production and allocation}, 13:339--347,
+  1951.
+
+\bibitem{fukuda1997criss}
+K.~Fukuda and T.~Terlaky.
+\newblock Criss-cross methods: A fresh view on pivot algorithms.
+\newblock {\em Mathematical programming}, 79(1-3):369--395, 1997.
+
+\bibitem{terlaky1987finite}
+T.~Terlaky.
+\newblock A finite crisscross method for oriented matroids.
+\newblock {\em Journal of Combinatorial Theory, Series B}, 42(3):319--327,
+  1987.
+
+\bibitem{vanderbei2020linear}
+Robert~J Vanderbei.
+\newblock {\em Linear programming: foundations and extensions}, volume 285.
+\newblock Springer Nature, 2020.
+
+\end{thebibliography}
