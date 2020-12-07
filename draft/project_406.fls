@@ -1,4 +1,4 @@
-PWD /Users/wangqi/Library/Mobile Documents/com~apple~CloudDocs/Lehigh/course/406 Introduction to Mathematical Optimization/project/draft
+PWD /Users/wangqi/Library/Mobile Documents/com~apple~CloudDocs/Lehigh/course/406 Introduction to Mathematical Optimization/project/406_final_project/draft
 INPUT /usr/local/texlive/2019/texmf.cnf
 INPUT /usr/local/texlive/2019/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2019/texmf-var/web2c/pdftex/pdflatex.fmt
@@ -89,6 +89,12 @@ INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/graphics/lscape.sty
 INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/graphics/lscape.sty
 INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/tools/verbatim.sty
 INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/tools/verbatim.sty
+INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/tools/hhline.sty
+INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/tools/hhline.sty
+INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/subfigure/subfigure.sty
+INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/subfigure/subfigure.sty
+INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/subfigure/subfigure.cfg
+INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/subfigure/subfigure.cfg
 INPUT project_406.aux
 INPUT project_406.aux
 OUTPUT project_406.aux
@@ -145,12 +151,13 @@ INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmex10.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT /usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map
-INPUT klee_cube_d2.jpg
-INPUT ./klee_cube_d2.jpg
-INPUT ./klee_cube_d2.jpg
-INPUT klee_pivot.png
-INPUT ./klee_pivot.png
-INPUT ./klee_pivot.png
+INPUT klee_cube_d2.png
+INPUT ./klee_cube_d2.png
+INPUT ./klee_cube_d2.png
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmr9.tfm
+INPUT klee_cube_d3.png
+INPUT ./klee_cube_d3.png
+INPUT ./klee_cube_d3.png
 INPUT project_406.bbl
 INPUT project_406.bbl
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmti10.tfm
@@ -168,6 +175,7 @@ INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb

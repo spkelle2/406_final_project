@@ -7,7 +7,8 @@
 \usepackage{lscape}
 \usepackage{verbatim}
 \usepackage{amsmath}
-
+\usepackage{hhline}
+\usepackage{subfigure}
 \begin{document}
 \title{Complexity of Pivot Algorithms}
 \author{Qi Wang, Sean Kelley}
@@ -68,16 +69,38 @@ When $n=2$ and $n=3$ the 2-d and 3-d Klee Minty LO problems are
 & x_1 \ge 0,\ x_2 \ge 0, \ x_3 \ge 0.
 \end{split}
 \end{align*}
-The feasible region of 2-d Klee Minty problem is showed in Figure \ref{fig:test}. And the feasible region of 3-d problem is shown in \textbf{TO be added}. 
+The feasible region of 2-d and 3-d Klee Minty problems are shown in Figure \ref{fig:kmcube}. It can be illustrated that they look like "squashed" square and cube, which are very ill-conditioned.
 \begin{figure}
-{\caption{Feasible region of 2-d Klee Minty cube with contour lines.}\label{fig:test}}
-\includegraphics[scale=0.30]{klee_cube_d2.jpg}
+    \centering
+    \subfigure[]{\includegraphics[width=0.38\textwidth]{klee_cube_d2.png}}
+    \subfigure[]{\includegraphics[width=0.59\textwidth]{klee_cube_d3.png}}
+    \caption{(a) Feasible region of 2-d Klee Minty Cube with contour lines (b) Feasible region of 3-d Klee Minty Cube}
+    \label{fig:kmcube}
 \end{figure}
-Let's apply primal simplex method with least-index and Dantzig (choose the biggest reduced cost) pivot rules to demonstrate the number of pivot steps.
-\textbf{To be nicer table}
-\begin{figure}[h]
-\includegraphics[scale=0.50]{klee_pivot.png}
-\end{figure}
+We apply primal simplex method (a) least-index version and (b) Dantzig (the nonbasis with biggest reduced cost enters) pivot rules to demonstrate the number of pivot steps. The tableau result of least-index pivot rule is shown in Table \ref{Table: tableau}. Note the results of Dantzig pivot rule and least-index rule coincide.
+
+\begin{table}[H]
+\caption{Tableau of primal simplex method (least index version), the element with a * is the pivot element. }
+\label{Table: tableau}
+\centering
+\begin{tabular}{c|llllll}
+   & rhs & $x_1$ & $x_2$ & $s_1$ & $s_2$ &                 \\ \cline{1-6}
+$z$  & 0   & 2  & 1  & 0  & 0  & at vetex (0,0)  \\
+$s_1$ & 5   & $1^*$  & 0  & 1  & 0  &                 \\
+$s_2$ & 25  & 4  & 1  & 0  & 1  &                 \\ \hhline{======}
+$z$  & -10 & 0  & 1  & -2 & 0  & at vetex (5,0)  \\
+$x_1$ & 5   & 1  & 0  & 1  & 0  &                 \\
+$s_2$ & 5   & 0  & $1^*$  & -4 & 1  &                 \\ \hhline{======}
+$z$  & -15 & 0  & 0  & 2  & -1 & at vetex (5,5)  \\
+$x_1$ & 5   & 1  & 0  & $1^*$  & 0  &                 \\
+$x_2$ & 5   & 0  & 1  & -4 & 1  &                 \\ \hhline{======}
+$z$  & -25 & -2 & 0  & 0  & -1 & at vetex (0,25) \\
+$s_1$ & 5   & 1  & 0  & 1  & 0  &                 \\
+$x_2$ & 25  & 4  & 1  & 0  & 1  &                 \\ \hhline{======}
+\end{tabular}
+\end{table}
+
+
 %\section{title}
 %There are certain pivot rules:
 %\begin{itemize}
