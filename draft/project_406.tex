@@ -117,4 +117,62 @@ Conclusion...
 \bibliographystyle{plain}
 \bibliography{reference.bib} 
 
+\section{Outline Suggestion}
+what are pivot algorithms?
+include point that there are two parts - selecting the pivot and making the pivot
+
+Why did pivot algorithms come about?
+
+what kinds are there?
+simplex
+criss cross
+
+who developed them? when?
+
+how do they differ (include problem assumptions/set up and iteration differences)?
+
+what were their pivot calculation (everything) and pivot choosing rules (e.g. dantzigs rule - just most negative reduced cost/element in objective row)
+
+what were their complexity?
+O(something) when nondegenerate in worst case
+degeneracy could still create infiniteness/nonconvergence
+
+what is degeneracy?
+
+why does degeneracy matter (how does it affect complexity)?
+
+how did we get around degeneracy?
+zadeh's/cunningham's rules
+blands rule
+
+What did this bring complexity to?
+same as before, now just covering a much wider array of problems
+now all were finite/convergent
+
+How could we improve this?
+either improve the pivot operation or the pivot selection
+
+How could we improve the pivot operations?
+Revised simplex method
+
+What is the revised simplex method? Who worked on this and when?
+
+What did this bring complexity to?
+
+This became the basis for modern solvers using pivot algorithms (get confirmed by gurobi/cplex/xpress/coin)
+mention improvements made by preprocessing, but don't go into detail - not sure if they are problem specific or general to pivot algorithms
+
+Why worry about improving pivot selection?
+pivot algorithms usually average polynomial time complexity
+but klee-minty showed that worst case complexity can actually be achieved
+(what is klee-minty)
+
+What were some early "improvements" to pivot selection?
+Greatest Improvement (calculates which column reduces objective the most)
+Steepest edge (normalize reduced cost with the norm of its column)
+(I think these were actually slower in the average case because when you have a lot of variables the quick calculations on bland's rule win out)
+
+Ok this is where I am stuck - these things cover us nicely until 1980's and our papers pick up 2010's. I feel like we should have something to fit the in between in terms of advancement of computational complexity of pivot algorithms
+
+
 \end{document}
