@@ -47,12 +47,14 @@ $m$ & number of constraints (assume $m \le n$) &  \\
 \end{tabular}
 \end{table}
 \section{Complexity - worst case}
-Given $m$ constraints and $n$ variables, there are at most $\binom{n}{m}$ possible basis, which is a upper bound for the number of iterations for pivot algorithms. When $m=\frac{n}{2}$, $\binom{n}{m}$ get its maximum $\binom{n}{\frac{n}{2}}\approx \sqrt{\frac{2}{\pi n}}2^n$. Klee and Minty defined a type of LO problems which many pivot algorithms will visit all the vertices to find the optimal solution. Detailed introduction of Klee Minty cube can be referred to \cite{vanderbei2020linear}. Here we demonstrate some simple examples. For such problem
-\begin{align*}
-\max &\sum_{j=1}^n 2^{n-j}x_j\\
-\text{s.t. } &2\sum_{j=1}^{i-1}2^{i-j}x_j + x_i \le 5^i &i=1,\cdots,n\\ 
-			&x_j \ge 0 & j=1,\cdots,n
-\end{align*} 
+Given $m$ constraints and $n$ variables, there are at most $\binom{n}{m}$ possible basis, which is the biggest upper bound for the number of iterations for pivot algorithms. When $m=\frac{n}{2}$, $\binom{n}{m}$ get its maximum $\binom{n}{\frac{n}{2}}\approx \sqrt{\frac{2}{\pi n}}2^n$. Klee and Minty defined a type of LO problems which some pivot algorithms may visit all vertices before finally finding the optimal solution. Detailed introduction of Klee Minty cube can be referred to \cite{vanderbei2020linear}. Here we demonstrate some examples. Klee Minty cube is defined as following LO problem \ref{eq:klLO}. The coefficients might be different in different articles. 
+\begin{align}
+\begin{split}
+\max &\sum_{j=1}^n 2^{n-j}x_j \\
+\text{s.t. } & 2\sum_{j=1}^{i-1}2^{i-j}x_j + x_i \le 5^i, \quad i=1,\cdots,n\\
+			&x_j \ge 0,  \quad j=1,\cdots,n
+\end{split}\label{eq:klLO}
+\end{align} 
 When $n=2$ and $n=3$ the 2-d and 3-d Klee Minty LO problems are 
 \begin{align*}
 \begin{split}
@@ -69,7 +71,7 @@ When $n=2$ and $n=3$ the 2-d and 3-d Klee Minty LO problems are
 & x_1 \ge 0,\ x_2 \ge 0, \ x_3 \ge 0.
 \end{split}
 \end{align*}
-The feasible region of 2-d and 3-d Klee Minty problems are shown in Figure \ref{fig:kmcube}. It can be illustrated that they look like "squashed" square and cube, which are very ill-conditioned.
+The feasible region of 2-d and 3-d Klee Minty problems are shown in Figure \ref{fig:kmcube}. They look like "squashed" square and cube, which are very ill-conditioned.
 \begin{figure}
     \centering
     \subfigure[]{\includegraphics[width=0.38\textwidth]{klee_cube_d2.png}}
@@ -77,10 +79,10 @@ The feasible region of 2-d and 3-d Klee Minty problems are shown in Figure \ref{
     \caption{(a) Feasible region of 2-d Klee Minty Cube with contour lines (b) Feasible region of 3-d Klee Minty Cube}
     \label{fig:kmcube}
 \end{figure}
-We apply primal simplex method (a) least-index version and (b) Dantzig (the nonbasis with biggest reduced cost enters) pivot rules to demonstrate the number of pivot steps. The tableau result of least-index pivot rule is shown in Table \ref{Table: tableau}. Note the results of Dantzig pivot rule and least-index rule coincide.
+We apply primal simplex method (a) least-index version and (b) Dantzig (the nonbasis with biggest reduced cost enters) pivot rules to demonstrate the number of pivot steps. The tableau result of least-index pivot rule is shown in Table \ref{Table: tableau}. Note the results of Dantzig pivot rule and least-index rule coincide because in first iteration, the nonbasis with the most negative reduced cost is $x_1$ which is the entering nonbasis by least-index rule, too. 
 
 \begin{table}[H]
-\caption{Tableau of primal simplex method (least index version), the element with a * is the pivot element. }
+\caption{Tableau of primal simplex method (least index version), the element with * is the pivot element. }
 \label{Table: tableau}
 \centering
 \begin{tabular}{c|llllll}
