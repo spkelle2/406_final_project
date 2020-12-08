@@ -10,6 +10,12 @@
 \usepackage{hhline}
 \usepackage{subfigure}
 \begin{document}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert} 
+
 \title{Complexity of Pivot Algorithms}
 \author{Qi Wang, Sean Kelley}
 \date{December, 2020}
@@ -27,14 +33,23 @@ Although simplex method was generally efficient in practical, theoretically, Kle
 The paper is structured as follows: in Section 2 we define the LO problem, list the notation and (\textbf{might present some algorithms}); in section 3 we discuss the complexity of pivot algorithms and give a brief conclusion in the final section.
 
 \section{The pivot algorithm for LO}
-In this paper, we consider the Linear optimization problem of the standard form
+In this paper, we consider the primal Linear optimization problem of the standard form
 \begin{align}
 \begin{split}
 \min \quad &c^Tx\\
 \text{s.t.} \quad &Ax = b\\
 &x \ge 0\\
  x \in \Rmbb^n,\ c \in \Rmbb^n,\ &A \in \Rmbb^{m\times n},\ b \in \Rmbb^m   
-\end{split}
+\end{split} \label{LOprimal}
+\end{align}
+And the dual problem is 
+\begin{align}
+\begin{split}
+\min \quad &b^Ty\\
+\text{s.t.} \quad &A^y + s = c\\
+&s \ge 0\\
+ y \in \Rmbb^m&,\ s \in \Rmbb^n   
+\end{split} \label{LOdual}
 \end{align}
 \begin{table}[h]
 \caption{Notation}
@@ -43,10 +58,13 @@ In this paper, we consider the Linear optimization problem of the standard form
 \hline
 $n$ & number of variables   &  \\
 $m$ & number of constraints (assume $m \le n$) &  \\
+$B$ & set of index of basis solution $x_B$, $|B| = m$&  \\
+$N$ & set of index of nonbasis solution $x_N$, $|N| = n-m$&  \\
 \hline
 \end{tabular}
 \end{table}
-\section{Complexity - worst case}
+\section{Complexity}
+\subsection{Worst case}
 Given $m$ constraints and $n$ variables, there are at most $\binom{n}{m}$ possible basis, which is the biggest upper bound for the number of iterations for pivot algorithms. When $m=\frac{n}{2}$, $\binom{n}{m}$ get its maximum $\binom{n}{\frac{n}{2}}\approx \sqrt{\frac{2}{\pi n}}2^n$. Klee and Minty defined a type of LO problems which some pivot algorithms may visit all vertices before finally finding the optimal solution. Detailed introduction of Klee Minty cube can be referred to \cite{vanderbei2020linear}. Here we demonstrate some examples. Klee Minty cube is defined as following LO problem \ref{eq:klLO}. The coefficients might be different in different articles. 
 \begin{align}
 \begin{split}
@@ -79,7 +97,7 @@ The feasible region of 2-d and 3-d Klee Minty problems are shown in Figure \ref{
     \caption{(a) Feasible region of 2-d Klee Minty Cube with contour lines (b) Feasible region of 3-d Klee Minty Cube}
     \label{fig:kmcube}
 \end{figure}
-We apply primal simplex method (a) least-index version and (b) Dantzig (the nonbasis with biggest reduced cost enters) pivot rules to demonstrate the number of pivot steps. The tableau result of least-index pivot rule is shown in Table \ref{Table: tableau}. Note the results of Dantzig pivot rule and least-index rule coincide because in first iteration, the nonbasis with the most negative reduced cost is $x_1$ which is the entering nonbasis by least-index rule, too. 
+We apply primal simplex method (a) least-index version and (b) Dantzig (the nonbasis with biggest reduced cost enters) pivot rules to demonstrate the number of pivot steps. The tableau result of least-index pivot rule is shown in Table \ref{Table: tableau}. The results of Dantzig pivot rule and least-index rule just coincide in this example because in first iteration, the nonbasis with the most negative reduced cost is $x_1$ which is the entering nonbasis by least-index rule, too. 
 
 \begin{table}[H]
 \caption{Tableau of primal simplex method (least index version), the element with * is the pivot element. }
@@ -101,7 +119,64 @@ $s_1$ & 5   & 1  & 0  & 1  & 0  &                 \\
 $x_2$ & 25  & 4  & 1  & 0  & 1  &                 \\ \hhline{======}
 \end{tabular}
 \end{table}
+By taking a look on the constraints, the first constraint says that $x_1$ is no bigger than 5. With this in mind, the second constraint says that $x_2$ has an upper bound of about 25, depending on how big $x_1$ is. Similarly, the third constraint says that $x_3$ is roughly no bigger than 125 (again, this statement needs some adjustment depending on the sizes of $x_1$ and $x_2$). Therefore, the constraints are approximately just a set of upper bounds, which means that the feasible region is virtually a stretched n-dimensional hypercube, which has $2^n$ vertices. And Klee and Minty \cite{klee1972good} showed that Dantzig pivot rule with primal simplex algorithm will conduct $2^n -1$ pivot steps.
 
+\subsection{Kitahara and Mizuno analysis}
+In 2011, Kitahara and Mizuno \cite{kitahara2013bound} proved the complexity can be bounded by a polynomial of $m, n$ and a special ratio. They utilized the analysis of Ye (2010) \cite{ye2010simplex} for Markov Decision Problem. We will summarize the key results of Kitahara and Mizuno \cite{kitahara2013bound} in this section. 
+
+We define some new notations. A BFS is said to be a basic feasible solution for primal LO problem (\ref{LOprimal}). Let $\delta$ and $\gamma$ be the minimum and the maximum values of all the positive elements of all BFSs. That is, for any BFS $\hat{x} \in \Rmbb^{n}$, if $\hat{x}_j \neq 0, \ j \in \{1, \cdots, n\}$ where the subscript $j$ represent the $j$th entry of $\hat{x}$, we have 
+\begin{align}
+\delta \le \hat{x}_j \le \gamma. \label{eq:bfsbound}
+\end{align} 
+
+The most important result of Kitahara and Mizuno \cite{kitahara2013bound} is the following theorem and corollary.
+\begin{theorem}
+When we apply the simplex method with the most negative rule or the best improvement rule for LO \ref{LOprimal} having optimal solutions, we encounter at most
+\begin{align}
+n\lceil m \frac{\gamma}{\delta}\log(m\frac{\gamma}{\delta})\rceil \label{kmcomplexity}
+\end{align}
+different basic feasible solutions. \label{KTheorem1}
+\end{theorem}
+
+\begin{corollary}
+ If the primal problem is nondegenerate, the simplex method finds an optimal solution in at most $n\lceil m \frac{\gamma}{\delta}\log(m\frac{\gamma}{\delta})\rceil$ iterations.
+\end{corollary}
+The proof can be referred to Kitahara and Mizuno \cite{kitahara2013bound}. 
+
+Therefore the bound (\ref{kmcomplexity}) is a polynomial of $n, m$ and $\frac{\gamma}{\delta}$ with assumptions that the primal LO \ref{LOprimal} has optimal solutions and is nondegenerate. In practical, the ratio of $\frac{\gamma}{\delta}$ is not easy to get prior to solving the problem. However, for some specific form of LO, $\frac{\gamma}{\delta}$ can be bounded using  LO coefficients. 
+\subsubsection{LO with a totally unimodular matrix A and integeral b}
+\begin{definition}
+A matrix A is totally unimodular if every square submatrix has determinant 0, -1 or 1. In particular, this implies that all entries are 0, -1 or 1.
+\end{definition}
+Totally unimodular matrices are very well behaved, because they always define polytopes with integer vertices, as long as the right-hand side is integer-valued. Many practical problem can be modelled using totally unimodular matrices, such as the node arc incidence matrix of a directed graph.
+
+With totally unimodular $A$ and integral $b$, all the elements of any BFS are integers, so $\delta \ge 1$. And for a BFS $x = (x_B, x_N)$, $x_N = 0$ and $x_B = A_B^{-1}b \ge 0$, since $A_B$ is totally unimodular, $A_B^{-1}$ is unimodular \cite{kitahara2013bound} and all the elements of $A_B^{-1}$ are $-1, 0$ or $1$. Thus for any $j \in B$ we have $x_j \le \norm{b}_1$, which implies $\gamma \le \norm{b}_1$. Thus $\frac{\gamma}{\delta} \le \frac{\norm{b}_1}{1}$. Thus by Theorem \ref{KTheorem1}, we have
+\begin{corollary}
+Assume that the constraint matrix A of LO (\ref{LOprimal}) is totally unimodular and the constraint vector b is integral. When we apply the simplex method with the most negative rule or the best improvement rule for LO (\ref{LOprimal}), we encounter at most $n\lceil m \norm{b}_1\log(m\norm{b}_1)\rceil$ different basic feasible solutions. Moreover if the LO (\ref{LOprimal}) is nondegenerate, this is the most iterations to find optimal solution. 
+\end{corollary}
+
+\subsubsection{Markov decision problem}
+In \cite{kitahara2013bound}, Kitahara and Mizuno also extended the theory for Markov decision problem (MDP), where the number of possible actions is two, is formulated as
+\begin{align}
+\begin{split}
+\min \quad &c_1^Tx_1 + c_2^Tx_2 \\
+\text{s.t. } \quad &(I-\theta P_1)x_1 + (I - \theta P_2)x_2 = e, \\
+&x_1, x_2 \ge 0
+\end{split}
+\end{align}
+where $I$ is the $m \times m$ identity matrix, $P_1, P_2$ are $m\times m$ Markov matrices (Markov transition matrices), $\theta$ is a discount rate, and $e$ is the vector of all ones. MDP has following properties.
+\begin{enumerate}
+\item MDP is nondegenerate.
+\item The minimum value of all the positive elements of BFSs is greater than or equal to 1, i.e., $\delta \ge 1$.
+\item he maximum value of all the positive elements of BFSs is less than or equal to $\frac{m}{1-\theta}$, i.e., $\gamma \le \frac{m}{1-\theta}$
+\end{enumerate}
+Therefore, again by Theorem \ref{KTheorem1}, Kitahara and Mizuno \cite{kitahara2013bound} obtained the similar result to Ye \cite{ye2010simplex}
+\begin{corollary}
+ The simplex method for solving MDP finds an optimal solution in at most $\lceil m \frac{m^2}{1-\theta}\log(\frac{m^2}{1-\theta})\rceil$ iterations, where $n=2m$.
+\end{corollary}
+
+\textbf{TODO}
+I plan to run some numerical tests on random generated LO problem, klee-minty?, and unimodular matrix problem by solvers and simplex method with difference pivot rules, to see whether iterations given by solvers agree with the theory.
 
 %\section{title}
 %There are certain pivot rules:
