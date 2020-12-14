@@ -63,7 +63,60 @@ $N$ & set of index of nonbasis solution $x_N$, $|N| = n-m$&  \\
 \hline
 \end{tabular}
 \end{table}
+
 \section{Complexity}
+\subsection{Historical Review}
+As we will go on to see in this article, much of our conversation will revolve around advancements in pivoting rules that led to performance increases for pivot algorithms. Before getting there, however, we would like to begin by discussing a few key improvements to other aspects of pivot algorithms that contributed to research focus in this space. We will start by going all the way back to the beginning.
+
+\subsubsection{Dantzig's Simplex Algorithm}
+As mentioned in our opening, the major advancement that opened the space of pivot algorithms was the development of the Primal Simplex Algorithm (referred to hereon as Simplex) by Dantzig, and his work will serve as our baseline for the complexity of pivot algorithms as we go on to compare them moving forward. In order to understand the complexity of the algorithm Dantzig proposed, let's take a moment to refresh ourselves on its operations. Although mentioned in greater detail in \cite{dantzig1951maximization}, the important details to recall are as follows. We begin by setting up the following system of equations where the equality exists between the first and second columns:
+\[\begin{array}{|c|c|c|c|}
+	\hline
+	0 & -c_B^T x_B & -c_N^T x_N & x_0 \\
+	\hline
+	&&&\\
+	b & A_B x_B & A_N x_N & 0 \\
+	&&&\\
+	\hline
+\end{array}\]
+Then with a couple of algebraic operations, we get the following tableau:
+\[\begin{array}{|c|c|c|c|}
+	\hline
+	-c_B^T A_B^{-1} b & 0 & (c_B^T A_B^{-1} A_N -c_N)^T x_N & x_0 \\
+	\hline
+	&&&\\
+	x_B & I & A_B^{-1}A_N x_N & 0 \\
+	&&&\\
+	\hline
+\end{array}\]
+Simplex tells us to then pivot through bases until we find one that is either optimal or inconsistent. To make a pivot, Dantzig said to do the following:
+\begin{itemize}
+	\item Find the most positive element in the top row. Denote its index as $q$ ($n-m$ operations)
+	\item Find the smallest $x_i/ \tau_{iq} : \tau_{iq} > 0$, where $\tau_{iq}$ is the $i$th element of the $q$th column in our tableau. If there is a tie, arbitrarily pick one of the tying elements ($3m$ operations)
+	\item Swap $i$ and $q$ in their respective index sets.
+	\item Multiply $A_B^-1$ by $A_N$ ($m^2*(n-m)$ operations)
+	\item Add $c_B^T A_B^-1 A_N$ to $-c_N^T$ ($m^2 + m(n-m) + (n-m)$ operations)
+\end{itemize}
+We see then this takes us to a total of $m^2 (n - m) + m^2 + m (n - m) + m + 2 n = O(m^2n)$ operations for the pivot.
+
+Now as we showed in class \cite{class}, we know that so long as there is no degeneracy in the problem, simplex cannot cycle, so the number of pivots is bounded by the number of possible bases, which was $\binom{n}{m}$. Therefore, we know Dantzig's version of simplex to have complexity $O(\binom{n}{m}m^2n)$ for nondegenerate problems.
+
+\subsubsection{Bland's Rule}
+Now for Dantzig's simplex, we assumed that a problem would have no degeneracy, which is a rather high standard for using the algorithm in practice. To further complicate the matter, degeneracy leads to cycling in that version of simplex, which means the algorithm could run infinitely and never converge. To get around that issue then, many pivot rules have been proposed which help simplex avoid cycles. Arguably none of these such pivoting rules are more famous than Bland's Rule, which updates the above steps of simplex in the following way:
+\begin{itemize}
+	\item instead of picking the most positive top row element to enter the basis, pick the first positive top row element.
+	\item instead of arbitrarily selecting a basis row matching the minimal ratio, select the minimal ratio basis row with least index.
+\end{itemize}
+As shown in \cite{bland}, these updates to Dantzig's simplex method ensure that we never cycle and make all linear programs converge and finite. Thus all linear programs now have complexity $O(\binom{n}{m}m^2n)$.
+
+\subsubsection{Revised Simplex Method}
+With simplex having a finite worst case across all problems, it is worthwhile to look at ways now to lower that upper bound. One of the first places the optimization community had success in doing this was with speeding up the process of making a pivot, which has come to be known as the Revised Simplex Method. Again, Revised Simplex differs from Dantzig's Simplex in two key ways \cite{revised}:
+\begin{itemize}
+	\item instead of calculating all of the objective row for each pivot, just calculate enough columns until we get a positive entry, pivoting on that (up to $n-m$ operations)
+	\item instead of multiplying $A_B^{-1}$ by all of $A_N$, just multiply by the column corresponding to our first found positive entry ($m^2$ operations).
+\end{itemize}
+It is worth highlighting at this point that \cite{revised} shows Revised Simplex yields the same solution as Dantzig's Simplex but saves us from making many unnecessary calculations. This change brings our pivot to $2 m^2 + m (n - m) + m + 2 n = O(mn)$ operations (the same as in Dantzig's Simplex but swap $m^2(n-m)$ for $m^2$).
+
 \subsection{Worst case}
 Given $m$ constraints and $n$ variables, there are at most $\binom{n}{m}$ possible basis, which is the biggest upper bound for the number of iterations for pivot algorithms. When $m=\frac{n}{2}$, $\binom{n}{m}$ get its maximum $\binom{n}{\frac{n}{2}}\approx \sqrt{\frac{2}{\pi n}}2^n$. Klee and Minty defined a type of LO problems which some pivot algorithms may visit all vertices before finally finding the optimal solution. Detailed introduction of Klee Minty cube can be referred to \cite{vanderbei2020linear}. Here we demonstrate some examples. Klee Minty cube is defined as following LO problem \ref{eq:klLO}. The coefficients might be different in different articles. 
 \begin{align}

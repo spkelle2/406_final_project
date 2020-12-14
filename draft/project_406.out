@@ -1,5 +1,13 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
 \BOOKMARK [1][-]{section.2}{The pivot algorithm for LO}{}% 2
-\BOOKMARK [1][-]{section.3}{Complexity - worst case}{}% 3
-\BOOKMARK [1][-]{section.4}{Conclusion}{}% 4
-\BOOKMARK [1][-]{section.5}{Outline Suggestion}{}% 5
+\BOOKMARK [1][-]{section.3}{Complexity}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{Historical Review}{section.3}% 4
+\BOOKMARK [3][-]{subsubsection.3.1.1}{Dantzig's Simplex Algorithm}{subsection.3.1}% 5
+\BOOKMARK [3][-]{subsubsection.3.1.2}{Bland's Rule}{subsection.3.1}% 6
+\BOOKMARK [3][-]{subsubsection.3.1.3}{Revised Simplex Method}{subsection.3.1}% 7
+\BOOKMARK [2][-]{subsection.3.2}{Worst case}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.3}{Kitahara and Mizuno analysis}{section.3}% 9
+\BOOKMARK [3][-]{subsubsection.3.3.1}{LO with a totally unimodular matrix A and integeral b}{subsection.3.3}% 10
+\BOOKMARK [3][-]{subsubsection.3.3.2}{Markov decision problem}{subsection.3.3}% 11
+\BOOKMARK [1][-]{section.4}{Conclusion}{}% 12
+\BOOKMARK [1][-]{section.5}{Outline Suggestion}{}% 13
