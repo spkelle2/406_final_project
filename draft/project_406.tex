@@ -9,6 +9,12 @@
 \usepackage{amsmath}
 \usepackage{hhline}
 \usepackage{subfigure}
+
+\usepackage[dvipsnames]{xcolor}
+\colorlet{LightRubineRed}{RubineRed!70!}
+\colorlet{Mycolor1}{red}
+\definecolor{Mycolor2}{HTML}{00F9DE}
+
 \begin{document}
 \newtheorem{theorem}{Theorem}
 \newtheorem{corollary}{Corollary}
@@ -89,19 +95,49 @@ Then with a couple of algebraic operations, we get the following tableau:
 	&&&\\
 	\hline
 \end{array}\]
-Simplex tells us to then pivot through bases until we find one that is either optimal or inconsistent. To make a pivot, Dantzig said to do the following:
+%-----------revise
+\textcolor{Mycolor1}{First and second columns have problem, should be: }
+\[\begin{array}{|c|c|c|c|}
+	\hline
+	c_B^T A_B^{-1} b & 0 & (c_B^T A_B^{-1} A_N -c_N)^T x_N & x_0 \\
+	\hline
+	&&&\\
+	A_B^{-1}b & Ix_B & A_B^{-1}A_N x_N & 0 \\
+	&&&\\
+	\hline
+\end{array}\]
+%-----------revise
+
+Simplex tells us to then pivot through bases until we find one that is either optimal or inconsistent. The pivoting operation for primal simplex method is as following
+\begin{itemize}
+	\item If there is dual infeasible
+	\begin{itemize}
+		\item Find a index from nonbasis, which are dual infeasible, i.e, choose $q \in \Qcal$ where $\Qcal
+		:= \{j \in N: (c_B^T A_B^{-1} A_j -c_j) > 0\}$. If $|\Qcal| = 1$, we just choose the only index, otherwise we make choice by some rules (we talk later). 
+		\item Find a index from basis by ratio test to keep the primal solution being feasible, i.e., choose $p \in \Pcal$ where $\Pcal:=\{\arg \min_{i \in B} \frac{x_i}{(A_B^{-1}A_q)_{i}}: (A_B^{-1}A_q)_{i} >0 \}$.  If $|\Pcal| = 0$, the LO is dual infeasible and primal unbounded, else if $|\Pcal| = 1$, we choose the only index, otherwise we make choice by some rules. 
+		\item Perform a pivot: $B:= B \cup \{q\} \backslash \{p\}$, $N:= N \cup \{p\} \backslash \{q\}$.
+	\end{itemize}
+	\item else, the current solution solves the LO problem.
+\end{itemize} 
+\subsubsection{Criss-cross algorithm}
+The difference between the criss-cross algorithm and simplex method is that criss-cross does not maintain either primal or dual feasibility, and thus omit the ratio test procedure. The similarities is that both simplex method and criss-cross algorithm are pivot algorithms and need some rules to choose the pivot element in each iteration. Such rule is crucial for the complexity and the finiteness of the whole algorithms. 
+ 
+\subsection{Pivoting rules}
+From now on, we focus on the simplex method unless otherwise stated. In simplex method, the decision of which nonbasis enter and which basis leaves (if more than one basis satisfy ratio test), is flexible. Thus many pivot rules are designed and we show some of them. 
+\subsubsection{Dantzig's rule}
+To make a pivot, Dantzig said to do the following:
 \begin{itemize}
 	\item Find the most positive element in the top row. Denote its index as $q$ ($n-m$ operations)
 	\item Find the smallest $x_i/ \tau_{iq} : \tau_{iq} > 0$, where $\tau_{iq}$ is the $i$th element of the $q$th column in our tableau. If there is a tie, arbitrarily pick one of the tying elements ($3m$ operations)
 	\item Swap $i$ and $q$ in their respective index sets.
-	\item Multiply $A_B^-1$ by $A_N$ ($m^2*(n-m)$ operations)
-	\item Add $c_B^T A_B^-1 A_N$ to $-c_N^T$ ($m^2 + m(n-m) + (n-m)$ operations)
+	\item Multiply $A_B^{-1}$ by $A_N$ ($m^2*(n-m)$ operations)
+	\item Add $c_B^T A_B^{-1} A_N$ to $-c_N^T$ ($m^2 + m(n-m) + (n-m)$ operations)
 \end{itemize}
 We see then this takes us to a total of $m^2 (n - m) + m^2 + m (n - m) + m + 2 n = O(m^2n)$ operations for the pivot.
 
 Now as we showed in class \cite{class}, we know that so long as there is no degeneracy in the problem, simplex cannot cycle, so the number of pivots is bounded by the number of possible bases, which was $\binom{n}{m}$. Therefore, we know Dantzig's version of simplex to have complexity $O(\binom{n}{m}m^2n)$ for nondegenerate problems.
 
-\subsubsection{Bland's Rule}
+\subsubsection{Bland's Rule (Least-index)}
 Now for Dantzig's simplex, we assumed that a problem would have no degeneracy, which is a rather high standard for using the algorithm in practice. To further complicate the matter, degeneracy leads to cycling in that version of simplex, which means the algorithm could run infinitely and never converge. To get around that issue then, many pivot rules have been proposed which help simplex avoid cycles. Arguably none of these such pivoting rules are more famous than Bland's Rule, which updates the above steps of simplex in the following way:
 \begin{itemize}
 	\item instead of picking the most positive top row element to enter the basis, pick the first positive top row element.
@@ -117,7 +153,41 @@ With simplex having a finite worst case across all problems, it is worthwhile to
 \end{itemize}
 It is worth highlighting at this point that \cite{revised} shows Revised Simplex yields the same solution as Dantzig's Simplex but saves us from making many unnecessary calculations. This change brings our pivot to $2 m^2 + m (n - m) + m + 2 n = O(mn)$ operations (the same as in Dantzig's Simplex but swap $m^2(n-m)$ for $m^2$).
 
-\subsection{Worst case}
+
+\subsubsection{Best improvement rule}
+
+Also called largest improvement rule and greatest improvement rule. It aims for largest increase in objective value. It will pick the nonbasic variable with the $j := \arg \max_{j\in N}(c_B^T A_B^{-1} A_j - c_j)\times t_j$ where $t_j = \min_{i \in \{B:(A_B^{-1}A_j)_{i} >0\}} \frac{x_i}{(A_B^{-1}A_j)_{i}}$. In other words, the improvement to objective value is the reduced cost times the ratio. And we choose nonbasis that bring largest improvement in this iteration. For example, as in \cite{largest}, the tableau is
+\begin{table}[h]
+\centering
+\begin{tabular}{cccccc}
+                        & rhs                    & $-s_1$ & $-s_2$ & $-s_3$ & $-s_4$                    \\ \cline{2-6} 
+\multicolumn{1}{l|}{$z$}  & \multicolumn{1}{l|}{0} & 2   & 3   & 0   & \multicolumn{1}{l|}{0} \\ \cline{2-6} 
+\multicolumn{1}{l|}{$x_3$} & \multicolumn{1}{l|}{2} & 1   & 2   & 1   & \multicolumn{1}{l|}{0} \\
+\multicolumn{1}{l|}{$x_4$} & \multicolumn{1}{l|}{3} & 1   & -1  & 0   & \multicolumn{1}{l|}{1} \\ \cline{2-6} 
+\end{tabular}
+\end{table}
+
+Now $x_1, x_2$ are nonbasis that are dual infeasible. For $x_1$ we can increase it to $t_1 = \min \{\frac{2}{1}, \frac{3}{1}\} = 2$; for $x_2$, $t_2 = \min \{\frac{2}{2}\} = 1$. Since $2t_1 = 4 > 3 = 3t_2$, we choose $x_1$ to enter according to this rule.
+
+Apparently, this rule need more arithmetic operations in each iteration. But it may save number of iterations, which we will talk later.
+
+\subsubsection{Steepest edge rule}
+Similar to Dantzig's rule, but instead of choose the most positive element in the top row, we choose $\max_{j \in N} \frac{c_B^TA_B^{-1}A_j - c_j}{\norm{A_B{-1}A_j}}$ (normalize reduced cost with the norm of its column).
+
+\subsubsection{Last-in-first-out rule (LIFO)}
+Apart from Bland's rule, this last-in-first-out, plus the following most-often-selected-variable (MOSV) rule are also finite pivot rules. LIFO and MOSV are proposed by Zhang in 1997 \cite{zhang1999new}. LIFO means among the candidates, choose the most recently moved variable. In the first iteration with no selection in the past, we use Bland's rule or Dantzig's rule.
+
+\subsubsection{Most-often-selected-variable (MOSV)}
+MOSV rule is to select the variable that has been selected the largest amount of times before, that is the "most often selected". In the first iteration with no selection in the past, we use Bland's rule or Dantzig's rule.
+
+Also, when choice by LIFO (or MOSV) rule is not unique, we use Dantzig's rule. This called Hybrid-LIFO (Hybrid-MOSV) \cite{zhang1999new}.
+
+\subsection{S-Monotone Index selection rules}
+General idea of Tibor's paper is that Bland, LIFO, MOSV are belong to s-Monotone rules, and proved s-Monotone rule is finite. And propose the guidance of how to revise other pivot rule, such as steepest edge rule, to be finite (combining with LIFO or MOSV). I will write in more detail.
+
+
+\section{Number of Iterations}
+\subsection{When will worst case happen}
 Given $m$ constraints and $n$ variables, there are at most $\binom{n}{m}$ possible basis, which is the biggest upper bound for the number of iterations for pivot algorithms. When $m=\frac{n}{2}$, $\binom{n}{m}$ get its maximum $\binom{n}{\frac{n}{2}}\approx \sqrt{\frac{2}{\pi n}}2^n$. Klee and Minty defined a type of LO problems which some pivot algorithms may visit all vertices before finally finding the optimal solution. Detailed introduction of Klee Minty cube can be referred to \cite{vanderbei2020linear}. Here we demonstrate some examples. Klee Minty cube is defined as following LO problem \ref{eq:klLO}. The coefficients might be different in different articles. 
 \begin{align}
 \begin{split}
@@ -150,7 +220,7 @@ The feasible region of 2-d and 3-d Klee Minty problems are shown in Figure \ref{
     \caption{(a) Feasible region of 2-d Klee Minty Cube with contour lines (b) Feasible region of 3-d Klee Minty Cube}
     \label{fig:kmcube}
 \end{figure}
-We apply primal simplex method (a) least-index version and (b) Dantzig (the nonbasis with biggest reduced cost enters) pivot rules to demonstrate the number of pivot steps. The tableau result of least-index pivot rule is shown in Table \ref{Table: tableau}. The results of Dantzig pivot rule and least-index rule just coincide in this example because in first iteration, the nonbasis with the most negative reduced cost is $x_1$ which is the entering nonbasis by least-index rule, too. 
+We apply primal simplex method (a) least-index and (b) Dantzig pivot rules to demonstrate the number of pivot steps. The tableau result of least-index pivot rule is shown in Table \ref{Table: tableau}. The results of Dantzig pivot rule and least-index rule just coincide in this example because in first iteration, the nonbasis with the most negative reduced cost is $x_1$ which is the entering nonbasis by least-index rule, too. 
 
 \begin{table}[H]
 \caption{Tableau of primal simplex method (least index version), the element with * is the pivot element. }
@@ -184,7 +254,7 @@ We define some new notations. A BFS is said to be a basic feasible solution for 
 
 The most important result of Kitahara and Mizuno \cite{kitahara2013bound} is the following theorem and corollary.
 \begin{theorem}
-When we apply the simplex method with the most negative rule or the best improvement rule for LO \ref{LOprimal} having optimal solutions, we encounter at most
+When we apply the simplex method with the Dantzig's rule or the best improvement rule for LO \ref{LOprimal} having optimal solutions, we encounter at most
 \begin{align}
 n\lceil m \frac{\gamma}{\delta}\log(m\frac{\gamma}{\delta})\rceil \label{kmcomplexity}
 \end{align}
@@ -205,7 +275,7 @@ Totally unimodular matrices are very well behaved, because they always define po
 
 With totally unimodular $A$ and integral $b$, all the elements of any BFS are integers, so $\delta \ge 1$. And for a BFS $x = (x_B, x_N)$, $x_N = 0$ and $x_B = A_B^{-1}b \ge 0$, since $A_B$ is totally unimodular, $A_B^{-1}$ is unimodular \cite{kitahara2013bound} and all the elements of $A_B^{-1}$ are $-1, 0$ or $1$. Thus for any $j \in B$ we have $x_j \le \norm{b}_1$, which implies $\gamma \le \norm{b}_1$. Thus $\frac{\gamma}{\delta} \le \frac{\norm{b}_1}{1}$. Thus by Theorem \ref{KTheorem1}, we have
 \begin{corollary}
-Assume that the constraint matrix A of LO (\ref{LOprimal}) is totally unimodular and the constraint vector b is integral. When we apply the simplex method with the most negative rule or the best improvement rule for LO (\ref{LOprimal}), we encounter at most $n\lceil m \norm{b}_1\log(m\norm{b}_1)\rceil$ different basic feasible solutions. Moreover if the LO (\ref{LOprimal}) is nondegenerate, this is the most iterations to find optimal solution. 
+Assume that the constraint matrix A of LO (\ref{LOprimal}) is totally unimodular and the constraint vector b is integral. When we apply the simplex method with the Dantzig's rule or the best improvement rule for LO (\ref{LOprimal}), we encounter at most $n\lceil m \norm{b}_1\log(m\norm{b}_1)\rceil$ different basic feasible solutions. Moreover if the LO (\ref{LOprimal}) is nondegenerate, this is the most iterations to find optimal solution. 
 \end{corollary}
 
 \subsubsection{Markov decision problem}
@@ -228,9 +298,6 @@ Therefore, again by Theorem \ref{KTheorem1}, Kitahara and Mizuno \cite{kitahara2
  The simplex method for solving MDP finds an optimal solution in at most $\lceil m \frac{m^2}{1-\theta}\log(\frac{m^2}{1-\theta})\rceil$ iterations, where $n=2m$.
 \end{corollary}
 
-\textbf{TODO}
-I plan to run some numerical tests on random generated LO problem, klee-minty?, and unimodular matrix problem by solvers and simplex method with difference pivot rules, to see whether iterations given by solvers agree with the theory.
-
 %\section{title}
 %There are certain pivot rules:
 %\begin{itemize}
@@ -244,7 +311,7 @@ I plan to run some numerical tests on random generated LO problem, klee-minty?, 
 \section{Conclusion}
 Conclusion...
 
-\bibliographystyle{plain}
+\bibliographystyle{plainurl}
 \bibliography{reference.bib} 
 
 \section{Outline Suggestion}
