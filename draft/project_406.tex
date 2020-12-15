@@ -172,7 +172,7 @@ Now $x_1, x_2$ are nonbasis that are dual infeasible. For $x_1$ we can increase 
 Apparently, this rule need more arithmetic operations in each iteration. But it may save number of iterations, which we will talk later.
 
 \subsubsection{Steepest edge rule}
-Similar to Dantzig's rule, but instead of choose the most positive element in the top row, we choose $\max_{j \in N} \frac{c_B^TA_B^{-1}A_j - c_j}{\norm{A_B{-1}A_j}}$ (normalize reduced cost with the norm of its column).
+Similar to Dantzig's rule, but instead of choose the most positive element in the top row, we choose $\max_{j \in N} \frac{c_B^TA_B^{-1}A_j - c_j}{\norm{A_B^{-1}A_j}}$ (normalize reduced cost with the norm of its column).
 
 \subsubsection{Last-in-first-out rule (LIFO)}
 Apart from Bland's rule, this last-in-first-out, plus the following most-often-selected-variable (MOSV) rule are also finite pivot rules. LIFO and MOSV are proposed by Zhang in 1997 \cite{zhang1999new}. LIFO means among the candidates, choose the most recently moved variable. In the first iteration with no selection in the past, we use Bland's rule or Dantzig's rule.
@@ -182,9 +182,64 @@ MOSV rule is to select the variable that has been selected the largest amount of
 
 Also, when choice by LIFO (or MOSV) rule is not unique, we use Dantzig's rule. This called Hybrid-LIFO (Hybrid-MOSV) \cite{zhang1999new}.
 
-\subsection{S-Monotone Index selection rules}
-General idea of Tibor's paper is that Bland, LIFO, MOSV are belong to s-Monotone rules, and proved s-Monotone rule is finite. And propose the guidance of how to revise other pivot rule, such as steepest edge rule, to be finite (combining with LIFO or MOSV). I will write in more detail.
+\subsection{S-monotone index selection rules}
+Csizmadia and Illés in 2010 \cite{csizmadia2012s} proposed that Bland, LIFO, MOSV pivot rules are s-monotone index selection rules. They provide a explicit definition of s-monotone index selection rules in \cite{csizmadia2012s}. The key steps of s-monotone rule are
+\begin{enumerate}
+\item Maintain a sequence of vectors $s_k \in \Ncal^n$, where $k$ is the iteration number. 
+\item At iteration $k$, when selecting index from a couple of candidates (tie in entering or leaving), select the index $j := \arg \max_j s_k^j$, where $j$ is the index of $s_k$.
+\item When finishing pivoting, generate $s_{k+1}$ by $s_{k}$ and specific rules for Bland, LIFO and MOSV (we talk latter). 
+\item $s_k$ is an nondecreasing vector from $k=0,1,2,\cdots$.
+\end{enumerate}
+We define $i_k, o_k$ are indices of entering variable and leaving variable at iteration $k$. The $s_k$ for Bland, LIFO, MOSV is generated as follows
 
+\begin{itemize}
+\item \textbf{Bland}. $s_k = (n, n-1, \cdots, 1)^T$ for all $k$.
+\item \textbf{LIFO}. \begin{align*}
+s_{k+1}^i = \left\{
+\begin{aligned}
+&k, & \text{if } i \in \{i_k, o_k\},\\
+&s_k^i & \text{ otherwise}. 
+\end{aligned}
+\right.
+\end{align*}
+\item \textbf{MOSV}. \begin{align*}
+s_{k+1}^i = \left\{
+\begin{aligned}
+&s_k^{i} + 1, & \text{if } i \in \{i_k, o_k\},\\
+&s_k^i & \text{ otherwise}. 
+\end{aligned}
+\right.
+\end{align*}
+
+\end{itemize}
+Csizmadia and Illés \cite{csizmadia2012s} then proved simplex method (as well as criss-cross) with s-monotone rule is finite algorithm. They also provided guidance of revising other pivot rules to be finite. For example, if we want to apply steepest edge rule but want to be finite, we can make some modification that, 
+\begin{enumerate}
+\item At the beginning, define a sequence $\{p_k\}$ that is strictly increasing.
+\item At iteration $k$, let
+$$
+\gamma = \max_{j \in N} \frac{c_{B^k}^TA_{B^k}^{-1}A_j - c_j}{\norm{A_{B^k}^{-1}A_j}},
+$$
+and adjust $p_k$ by
+ \begin{align*}
+p_k = \left\{
+\begin{aligned}
+&p_k + \delta, & \text{if } p_{k-1} \ge \gamma,\\
+&\gamma, & \text{ otherwise}. 
+\end{aligned}
+\right.
+\end{align*}
+where $\delta > 0$ is a given number. The $\{p_k\}$ by such adjustment is strictly increasing. Therefore we can use it to update the $s_{k}$ as follows (similar to LIFO)
+\begin{align*}
+s_{k}^i = \left\{
+\begin{aligned}
+&p_k, & \text{if } i \in \{i_k, o_k\},\\
+&s_{k-1}^i & \text{ otherwise}. 
+\end{aligned}
+\right.
+\end{align*}
+\item Select the candidates (of indices) that has largest value of $s_k$.
+\end{enumerate}
+In such way the steepest edge method is combined with LIFO, and is s-monotone index rules (finite). It can also be combined with MOSV similarly. Consequently, they state an possible research direction is that to analyze the complexity of s-monotone index selection rules.
 
 \section{Number of Iterations}
 \subsection{When will worst case happen}

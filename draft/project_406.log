@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.11.5)  15 DEC 2020 21:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.11.5)  16 DEC 2020 01:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -507,49 +507,50 @@ cmr/m/n/10.95 ) \OMS/cmsy/m/n/10.95 ^^B \OML/cmm/m/it/10.95 t[]$ \OT1/cmr/m/n/1
 0.95 where $\OML/cmm/m/it/10.95 t[] \OT1/cmr/m/n/10.95 = [][] []$.
  []
 
-[5] [6]
-<klee_cube_d2.png, id=161, 578.16pt x 578.16pt>
+[5] [6] [7] [8]
+<klee_cube_d2.png, id=184, 578.16pt x 578.16pt>
 File: klee_cube_d2.png Graphic file (type png)
 <use klee_cube_d2.png>
-Package pdftex.def Info: klee_cube_d2.png  used on input line 218.
+Package pdftex.def Info: klee_cube_d2.png  used on input line 273.
 (pdftex.def)             Requested size: 136.80176pt x 136.79393pt.
-<klee_cube_d3.png, id=163, 433.62pt x 289.08pt>
+<klee_cube_d3.png, id=186, 433.62pt x 289.08pt>
 File: klee_cube_d3.png Graphic file (type png)
 <use klee_cube_d3.png>
-Package pdftex.def Info: klee_cube_d3.png  used on input line 219.
+Package pdftex.def Info: klee_cube_d3.png  used on input line 274.
 (pdftex.def)             Requested size: 212.39868pt x 141.60191pt.
- [7] [8pdfTeX warning (ext4): destination with the same identifier (name{figure
-.1}) has been already used, duplicate ignored
+ [9pdfTeX warning (ext4): destination with the same identifier (name{figure.1})
+ has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.246 
-      pdfTeX warning (ext4): destination with the same identifier (name{table.2
-}) has been already used, duplicate ignored
+l.299 \end{table}
+                  <./klee_cube_d2.png> <./klee_cube_d3.png>] [10pdfTeX warning 
+(ext4): destination with the same identifier (name{table.2}) has been already u
+sed, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.246 
-       <./klee_cube_d2.png> <./klee_cube_d3.png>] [9] [10] (./project_406.bbl
-[11]) [12]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 375.
- [13]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 375.
- (./project_406.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 375.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 375.
+l.308 \end{align}
+                 ] [11] (./project_406.bbl [12] [13]) [14]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 430.
+ [15]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 430.
+
+(./project_406.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 430.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 430.
 Package rerunfilecheck Info: File `project_406.out' has not changed.
-(rerunfilecheck)             Checksum: 8338AE7A921F5F7BEB6CC5148EFE5823;1626.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 375.
+(rerunfilecheck)             Checksum: BCEE244DA9FF55303F4B428A02DC15B7;1626.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 430.
  ) 
 Here is how much of TeX's memory you used:
- 8535 strings out of 492616
- 119948 string characters out of 6129481
- 229647 words of memory out of 5000000
- 12262 multiletter control sequences out of 15000+600000
+ 8547 strings out of 492616
+ 120048 string characters out of 6129481
+ 233688 words of memory out of 5000000
+ 12264 multiletter control sequences out of 15000+600000
  12473 words of font info for 47 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 35i,16n,35p,739b,441s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 35i,17n,35p,739b,443s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
@@ -568,10 +569,10 @@ e/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2
 exmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2019/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2019/tex
 mf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on project_406.pdf (13 pages, 544543 bytes).
+Output written on project_406.pdf (15 pages, 550299 bytes).
 PDF statistics:
- 320 PDF objects out of 1000 (max. 8388607)
- 280 compressed objects within 3 object streams
- 70 named destinations out of 1000 (max. 500000)
+ 342 PDF objects out of 1000 (max. 8388607)
+ 300 compressed objects within 3 object streams
+ 80 named destinations out of 1000 (max. 500000)
  187 words of extra memory for PDF output out of 10000 (max. 10000000)
 

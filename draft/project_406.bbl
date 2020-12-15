@@ -16,6 +16,13 @@ Wikipedia Contributors.
 \newblock Klee–minty cube, 11 2020.
 \newblock URL: \url{https://en.wikipedia.org/wiki/Klee%E2%80%93Minty_cube}.
 
+\bibitem{csizmadia2012s}
+Zsolt Csizmadia, Tibor Ill{\'e}s, and Adrienn Nagy.
+\newblock The s-monotone index selection rules for pivot algorithms of linear
+  programming.
+\newblock {\em European journal of operational research}, 221(3):491--500,
+  2012.
+
 \bibitem{dantzig1951maximization}
 George~B Dantzig.
 \newblock Maximization of a linear function of variables subject to linear
