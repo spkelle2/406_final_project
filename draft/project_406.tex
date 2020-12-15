@@ -406,19 +406,16 @@ With these four algorithms, Del Pia and Michini go on to prove the following res
 		\item Recall that the Scaling Algorithm's length is $O(nk \text{ log}\Vert \tilde{c} \Vert_\infty)$, which in this case becomes $O(nk \text{ log } n k \alpha)$
 	\end{itemize}
 \end{itemize}
+Furthermore, for each algorithm, the authors show for a given set of inputs that the solution is the same as if those inputs had been run directly against simplex.
 
-Now when looking at this last result, we appear to see a polynomial complexity for solving a problem with simplex (since we showed pivot calculations earlier to be polynomial). Now at first glance this might be exciting, but let's take a moment to recall their hypothesis. Del Pia and Michini assume our feasible vertices form a lattice polytope, which can rule out many LP's. Additionally, they state that the complexity is in terms of the number of vertices simplex visits, which in the case of a problem with degeneracy, is not the same as the number of pivots. So although this complexity, as we'll see next, is a nice improvement over the previous case of solving this class of LP, this class is a rather small subspace of all LP's. This isn't to say this work is insignificant, however, as much as it is to say there would be great value in further research to generalize this method to solve a wider variety of problems.
+Now when looking at the last two results above, we appear to see a polynomial complexity for solving a problem with simplex (since we showed pivot calculations earlier to be polynomial). Now at first glance this might be exciting, but let's take a moment to recall their hypothesis. Del Pia and Michini assume our feasible vertices form a lattice polytope, which can rule out many LP's. Additionally, they state that the complexity is in terms of the number of vertices simplex visits, which in the case of a problem with degeneracy, is not the same as the number of pivots. So although this complexity, as we'll see next, is a nice improvement over the previous case of solving this class of LP, this class is a rather small subspace of all LP's. This isn't to say this work is insignificant, however, as much as it is to say there would be great value in further research to generalize this method to solve a wider variety of problems.
 
 \subsection{Relationship to Previously Discussed Works}
+The work of Del Pia and Michini builds on and relates to multiple other topics in this paper, and we would like to take a moment now to call out some of the highlights. Most noticeably, at the base of all of the algorithms developed by Del Pia and Michini was their Basic Algorithm, which finds an optimal solution over a lattice polytope for a cost vector. At its core, this Basic Algorithm runs an arbitrary non-cycling simplex method, which could be any one of the pivot algorithms mentioned before this section.
 
+The second comparison worth calling out is the relationship between this result and those of Kitahara. Notice that for Kitahara, they assumed the LP was being solved over a unimodular $A$ and integral $b$, which is a special instance of a lattice polytope. Therefore the results of both papers can be compared over the case of LP's with unimodular $A$ and integral $b$. Recall Kitahara showed that for nondegenerate problems, the upper bound on the number of iterations for simplex is $n\lceil m \norm{b}_1\log(m\norm{b}_1)\rceil$. Note that this was proven on the assumption the LP was in standard form, but Del Pia and Michini assumed their problem was in general form. To get problems the same, Del Pia and Michini used an affine transformation, which mapped Kitahara's bound to $O(n^3 \text{ log } n)$ over the same problem space. Remembering the previous results of Del Pia and Michini, we saw that their bound was $O(n^2k \text{ log } nk\alpha)$. However, in the case of unimodular $A$ and $\alpha$ is a polynomial of $n$, we can conclude $k = 1$, which with the second condition, allows us to conclude the complexity is $O(n^2 \text{ log } n)$. We see then their result is a nice improvement in terms of complexity, and, since it applies to a wider array of problems, it is even much more general as well.
 
 \section{Conclusion}
-
-
-
-\subsection{Implementations}
-
-\subsection{Closing Remarks}
 
 \bibliographystyle{plainurl}
 \bibliography{reference.bib} 
