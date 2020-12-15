@@ -88,17 +88,6 @@ As mentioned in our opening, the major advancement that opened the space of pivo
 Then with a couple of algebraic operations, we get the following tableau:
 \[\begin{array}{|c|c|c|c|}
 	\hline
-	-c_B^T A_B^{-1} b & 0 & (c_B^T A_B^{-1} A_N -c_N)^T x_N & x_0 \\
-	\hline
-	&&&\\
-	x_B & I & A_B^{-1}A_N x_N & 0 \\
-	&&&\\
-	\hline
-\end{array}\]
-%-----------revise
-\textcolor{Mycolor1}{First and second columns have problem, should be: }
-\[\begin{array}{|c|c|c|c|}
-	\hline
 	c_B^T A_B^{-1} b & 0 & (c_B^T A_B^{-1} A_N -c_N)^T x_N & x_0 \\
 	\hline
 	&&&\\
@@ -106,7 +95,6 @@ Then with a couple of algebraic operations, we get the following tableau:
 	&&&\\
 	\hline
 \end{array}\]
-%-----------revise
 
 Simplex tells us to then pivot through bases until we find one that is either optimal or inconsistent. The pivoting operation for primal simplex method is as following
 \begin{itemize}
@@ -421,9 +409,12 @@ With these four algorithms, Del Pia and Michini go on to prove the following res
 
 Now when looking at this last result, we appear to see a polynomial complexity for solving a problem with simplex (since we showed pivot calculations earlier to be polynomial). Now at first glance this might be exciting, but let's take a moment to recall their hypothesis. Del Pia and Michini assume our feasible vertices form a lattice polytope, which can rule out many LP's. Additionally, they state that the complexity is in terms of the number of vertices simplex visits, which in the case of a problem with degeneracy, is not the same as the number of pivots. So although this complexity, as we'll see next, is a nice improvement over the previous case of solving this class of LP, this class is a rather small subspace of all LP's. This isn't to say this work is insignificant, however, as much as it is to say there would be great value in further research to generalize this method to solve a wider variety of problems.
 
+\subsection{Relationship to Previously Discussed Works}
+
+
 \section{Conclusion}
 
-\subsection{Comparison of All Works}
+
 
 \subsection{Implementations}
 
