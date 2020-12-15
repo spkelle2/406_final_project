@@ -9,45 +9,45 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: reference.bib
 Warning--entry type for "largest" isn't style-file defined
 --line 92 of file reference.bib
-You've used 14 entries,
+You've used 15 entries,
             2849 wiz_defined-function locations,
-            705 strings with 6997 characters,
-and the built_in function-call counts, 5185 in all, are:
-= -- 534
-> -- 138
+            712 strings with 7200 characters,
+and the built_in function-call counts, 5657 in all, are:
+= -- 583
+> -- 158
 < -- 1
-+ -- 52
-- -- 34
-* -- 235
-:= -- 760
-add.period$ -- 40
-call.type$ -- 14
-change.case$ -- 59
++ -- 60
+- -- 40
+* -- 266
+:= -- 829
+add.period$ -- 43
+call.type$ -- 15
+change.case$ -- 65
 chr.to.int$ -- 0
-cite$ -- 14
-duplicate$ -- 140
-empty$ -- 539
-format.name$ -- 34
-if$ -- 1358
+cite$ -- 15
+duplicate$ -- 151
+empty$ -- 580
+format.name$ -- 40
+if$ -- 1474
 int.to.chr$ -- 0
-int.to.str$ -- 14
-missing$ -- 10
-newline$ -- 71
-num.names$ -- 28
-pop$ -- 121
+int.to.str$ -- 15
+missing$ -- 11
+newline$ -- 76
+num.names$ -- 30
+pop$ -- 129
 preamble$ -- 1
-purify$ -- 45
+purify$ -- 50
 quote$ -- 0
-skip$ -- 402
+skip$ -- 432
 stack$ -- 0
-substring$ -- 266
-swap$ -- 14
+substring$ -- 297
+swap$ -- 15
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 54
+type$ -- 58
 warning$ -- 0
-while$ -- 42
-width$ -- 16
-write$ -- 148
+while$ -- 46
+width$ -- 17
+write$ -- 159
 (There was 1 warning)
