@@ -14,6 +14,7 @@ Yow-Yieh Chang.
 \bibitem{wikipediacontributors_2020_kleeminty}
 Wikipedia Contributors.
 \newblock Klee–minty cube, 11 2020.
+\newblock URL: \url{https://en.wikipedia.org/wiki/Klee%E2%80%93Minty_cube}.
 
 \bibitem{dantzig1951maximization}
 George~B Dantzig.
@@ -37,6 +38,13 @@ Tomonari Kitahara and Shinji Mizuno.
 V.~Klee and G.J. Minty.
 \newblock How good is the simplex algorithm.
 \newblock {\em Inequalities}, 3(3):159--175, 1972.
+
+\bibitem{largest}
+University of~Waterloo.
+\newblock Lecture note of co350 linear programming chapter 6: The simplex
+  method, 2015.
+\newblock URL:
+  \url{https://www.math.uwaterloo.ca/~hwolkowi//henry/teaching/f05/350.f05/L16.pdf}.
 
 \bibitem{terlaky1987finite}
 T.~Terlaky.
@@ -62,5 +70,12 @@ Harvey Wagner.
 Yinyu Ye.
 \newblock The simplex method is strongly polynomial for the markov decision
   problem with a fixed discount rate, 2010.
+
+\bibitem{zhang1999new}
+Shuzhong Zhang.
+\newblock New variants of finite criss-cross pivot algorithms for linear
+  programming.
+\newblock {\em European Journal of Operational Research}, 116(3):607--614,
+  1999.
 
 \end{thebibliography}
