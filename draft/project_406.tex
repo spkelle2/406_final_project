@@ -322,7 +322,7 @@ different basic feasible solutions. \label{KTheorem1}
 The proof can be referred to Kitahara and Mizuno \cite{kitahara2013bound}. 
 
 Therefore the bound (\ref{kmcomplexity}) is a polynomial of $n, m$ and $\frac{\gamma}{\delta}$ with assumptions that the primal LO \ref{LOprimal} has optimal solutions and is nondegenerate. In practical, the ratio of $\frac{\gamma}{\delta}$ is not easy to get prior to solving the problem. However, for some specific form of LO, $\frac{\gamma}{\delta}$ can be bounded using  LO coefficients. 
-\subsubsection{LO with a totally unimodular matrix A and integeral b}
+\subsubsection{LO with a totally unimodular matrix A and integral b}
 \begin{definition}
 A matrix A is totally unimodular if every square submatrix has determinant 0, -1 or 1. In particular, this implies that all entries are 0, -1 or 1.
 \end{definition}
@@ -362,69 +362,74 @@ Therefore, again by Theorem \ref{KTheorem1}, Kitahara and Mizuno \cite{kitahara2
 %\item Polynomial Hirsch conjecture -- still open
 %\end{itemize}
 
+\subsection{Del Pia and Michini Analysis}
+Earlier this year, another paper was released by Del Pia and Michini further refining the upper bounds on required pivots to solve certain subclasses of linear programs \cite{pia}. In their case, they focus on the simplex paths for LP's defined over lattice polytopes (i.e. polytopes with only integer vertices). Their analysis of these paths hinge on the following four algorithms.
+
+\subsubsection{Algorithm Review and Complexity}
+\begin{itemize}
+	\item A Basic Algorithm (A simplex method that avoids cycling) \\
+	\textbf{Input}: Lattice Polytope $P$, vector $c$, vertex $x^0$ of $P$ \\
+	\textbf{Ouput}: Vertex $x^*$ maximizing $P$ 
+
+	\item A Scaling Algorithm \\
+	\textbf{Input}: Lattice Polytope $P$, vector $c$, vertex $x^0$ of $P$ \\
+	\textbf{Ouput}: Vertex $x^*$ maximizing $P$
+	\begin{enumerate}
+		\item Let $l = \lceil \text{log}\Vert c \Vert_\infty \rceil$. Define approximations $c^i = \lceil c/2^{l - i} \rceil$.
+		\item For $i \in [l]$, let $x^{i+1} = \text{Basic Algorithm}(P, c^i, x^i)$.
+		\item Return $x^{l+1}$ optimal.
+	\end{enumerate}
+	\item A Preprocessing and Scaling Algorithm \\
+	\textbf{Input}: Lattice Polytope $P$, vector $c$, vertex $x^0$ of $P$ \\
+	\textbf{Ouput}: Vertex $x^*$ maximizing $P$
+	\begin{enumerate}
+		\item Perturb $c$ as described in Section 3 of \cite{preprocess}. Denote the output as $\bar{c}$
+		\item Let $x^* = \text{Scaling Algorithm}(P, \bar{c}, x)$
+		\item Return $x^*$ optimal.
+	\end{enumerate}
+	\item An Iterative Scaling Algorithm \\
+	\textbf{Input}: Lattice Polytope $P$, vector $c$, vertex $x^0$ of $P$ \\
+	\textbf{Ouput}: Vertex $x^*$ maximizing $P$
+	\begin{enumerate}
+		\item Let $x^* = x^0$.
+		\item Let $\bar{c}$ be projection of $c$ onto one active constraint from each previous iteration. If $\bar{c} = 0$, return $x^*$
+		\item Let $\tilde{c}$ be the perturbation of $\bar{c}$ as described in Section 4 of \cite{pia}.
+		\item Let $x^* = \text{Scaling Algorithm}(P, \tilde{c}, x^*)$. Return to 2.
+	\end{enumerate}
+\end{itemize}
+
+With these four algorithms, Del Pia and Michini go on to prove the following results.
+\begin{itemize}
+	\item Basic Algorithm length $\leq nk \Vert c \Vert_\infty$
+	\item Scaling Algorithm length is $O(nk \text{ log}\Vert c \Vert_\infty)$
+	\begin{itemize}
+		\item Basic Algorithm is called $\text{log}\Vert c \Vert_\infty) + 1$ times.
+		\item For scaled $c$ each run of Basic Algorithm has $\leq nk$ pivots.
+	\end{itemize}
+	\item Preprocessing and Scaling Algorithm length is $O(n^4k \text{ log } nk))$
+	\begin{itemize}
+		\item Perturbed $c$ reduces the number of times the Scaling Algorithm has to call the Basic Algorithm from $\text{log} \Vert c \Vert_\infty$ to $n^3 \text{ log } nk$.
+		\item For each scaling of perturbed $c$, the run of Basic Algorithm still has $\leq nk$ pivots.
+	\end{itemize}
+	\item Iterative Scaling Algorithm length is $O(n^2 k \text{ log } nk\alpha)$, where $\alpha$ is the largest element in $A$.
+	\begin{itemize}
+		\item Iterative Scaling Algorithm has at most $n$ iterations.
+		\item The perturbation of $\bar{c}$ makes $\Vert \tilde{c} \Vert_\infty \leq n^3 k \alpha$.
+		\item Recall that the Scaling Algorithm's length is $O(nk \text{ log}\Vert \tilde{c} \Vert_\infty)$, which in this case becomes $O(nk \text{ log } n k \alpha)$
+	\end{itemize}
+\end{itemize}
+
+Now when looking at this last result, we appear to see a polynomial complexity for solving a problem with simplex (since we showed pivot calculations earlier to be polynomial). Now at first glance this might be exciting, but let's take a moment to recall their hypothesis. Del Pia and Michini assume our feasible vertices form a lattice polytope, which can rule out many LP's. Additionally, they state that the complexity is in terms of the number of vertices simplex visits, which in the case of a problem with degeneracy, is not the same as the number of pivots. So although this complexity, as we'll see next, is a nice improvement over the previous case of solving this class of LP, this class is a rather small subspace of all LP's. This isn't to say this work is insignificant, however, as much as it is to say there would be great value in further research to generalize this method to solve a wider variety of problems.
 
 \section{Conclusion}
-Conclusion...
+
+\subsection{Comparison of All Works}
+
+\subsection{Implementations}
+
+\subsection{Closing Remarks}
 
 \bibliographystyle{plainurl}
 \bibliography{reference.bib} 
-
-\section{Outline Suggestion}
-what are pivot algorithms?
-include point that there are two parts - selecting the pivot and making the pivot
-
-Why did pivot algorithms come about?
-
-what kinds are there?
-simplex
-criss cross
-
-who developed them? when?
-
-how do they differ (include problem assumptions/set up and iteration differences)?
-
-what were their pivot calculation (everything) and pivot choosing rules (e.g. dantzigs rule - just most negative reduced cost/element in objective row)
-
-what were their complexity?
-O(something) when nondegenerate in worst case
-degeneracy could still create infiniteness/nonconvergence
-
-what is degeneracy?
-
-why does degeneracy matter (how does it affect complexity)?
-
-how did we get around degeneracy?
-zadeh's/cunningham's rules
-blands rule
-
-What did this bring complexity to?
-same as before, now just covering a much wider array of problems
-now all were finite/convergent
-
-How could we improve this?
-either improve the pivot operation or the pivot selection
-
-How could we improve the pivot operations?
-Revised simplex method
-
-What is the revised simplex method? Who worked on this and when?
-
-What did this bring complexity to?
-
-This became the basis for modern solvers using pivot algorithms (get confirmed by gurobi/cplex/xpress/coin)
-mention improvements made by preprocessing, but don't go into detail - not sure if they are problem specific or general to pivot algorithms
-
-Why worry about improving pivot selection?
-pivot algorithms usually average polynomial time complexity
-but klee-minty showed that worst case complexity can actually be achieved
-(what is klee-minty)
-
-What were some early "improvements" to pivot selection?
-Greatest Improvement (calculates which column reduces objective the most)
-Steepest edge (normalize reduced cost with the norm of its column)
-(I think these were actually slower in the average case because when you have a lot of variables the quick calculations on bland's rule win out)
-
-Ok this is where I am stuck - these things cover us nicely until 1980's and our papers pick up 2010's. I feel like we should have something to fit the in between in terms of advancement of computational complexity of pivot algorithms
-
 
 \end{document}

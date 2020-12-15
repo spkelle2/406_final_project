@@ -1,5 +1,10 @@
 \begin{thebibliography}{10}
 
+\bibitem{pia}
+Carla~Michini Alberto Del~Pia.
+\newblock Short simplex paths in lattice polytopes.
+\newblock 2020.
+
 \bibitem{bland}
 Robert Bland.
 \newblock New finite pivoting rules for the simplex method.
@@ -29,6 +34,12 @@ George~B Dantzig.
   inequalities.
 \newblock {\em Activity analysis of production and allocation}, 13:339--347,
   1951.
+
+\bibitem{preprocess}
+A.~Frank and E~Tardos.
+\newblock An application of simultaneous diophantine approximation in
+  combinatorial optimization.
+\newblock {\em Combinatorica}, 7:49--65, 1987.
 
 \bibitem{fukuda1997criss}
 K.~Fukuda and T.~Terlaky.

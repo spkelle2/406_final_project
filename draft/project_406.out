@@ -16,7 +16,11 @@
 \BOOKMARK [1][-]{section.4}{Number of Iterations}{}% 16
 \BOOKMARK [2][-]{subsection.4.1}{When will worst case happen}{section.4}% 17
 \BOOKMARK [2][-]{subsection.4.2}{Kitahara and Mizuno analysis}{section.4}% 18
-\BOOKMARK [3][-]{subsubsection.4.2.1}{LO with a totally unimodular matrix A and integeral b}{subsection.4.2}% 19
+\BOOKMARK [3][-]{subsubsection.4.2.1}{LO with a totally unimodular matrix A and integral b}{subsection.4.2}% 19
 \BOOKMARK [3][-]{subsubsection.4.2.2}{Markov decision problem}{subsection.4.2}% 20
-\BOOKMARK [1][-]{section.5}{Conclusion}{}% 21
-\BOOKMARK [1][-]{section.6}{Outline Suggestion}{}% 22
+\BOOKMARK [2][-]{subsection.4.3}{Del Pia and Michini Analysis}{section.4}% 21
+\BOOKMARK [3][-]{subsubsection.4.3.1}{Algorithm Review and Complexity}{subsection.4.3}% 22
+\BOOKMARK [1][-]{section.5}{Conclusion}{}% 23
+\BOOKMARK [2][-]{subsection.5.1}{Comparison of All Works}{section.5}% 24
+\BOOKMARK [2][-]{subsection.5.2}{Implementations}{section.5}% 25
+\BOOKMARK [2][-]{subsection.5.3}{Closing Remarks}{section.5}% 26
