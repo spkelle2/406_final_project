@@ -110,45 +110,8 @@
 \item Last-in-first-out rule (LIFO): choose the most recently moved variable.
 \item Most-often-selected-variable (MOSV): choose the variable that has been selected the largest amount of times before.
 \end{itemize}
+Bland's, LIFO, MOSV are all S-monotone index selection rules, which is finite with simplex method and criss-cross.
 \end{frame}
-
-%------------------------------------------------
-\subsection{S-monotone index selection rules}
-\begin{frame}
-\frametitle{S-monotone index selection rules\cite{csizmadia2012s}}
-What is \textbf{s}?
-
-- At iteration $k$, $s_k \in \Nmbb^{n}$. Generate $s_k$ at each iteration. And choose the candidate of entering basis indices $j := \arg \max_j {s_k^j}$.
-
-How to generate $s_k$?
-
-\begin{itemize}
-\item Bland's rule: $s_k = (n, n-1, \cdots, 1)^T$ for all $k$.
-\item LIFO. \begin{align*}
-s_{k+1}^i = \left\{
-\begin{aligned}
-&k, & \text{if } i \in \{i_k, o_k\},\\
-&s_k^i & \text{ otherwise}. 
-\end{aligned}
-\right.
-\end{align*}
-\item MOSV. \begin{align*}
-s_{k+1}^i = \left\{
-\begin{aligned}
-&s_k^{i} + 1, & \text{if } i \in \{i_k, o_k\},\\
-&s_k^i & \text{ otherwise}. 
-\end{aligned}
-\right.
-\end{align*}
-\end{itemize}
-
-What is "s-monotone"?
-
-- For iteration $k-1$ and $k$, $s_{k-1}^i \le s_{k}^i$ for all $i= 1,\cdots, n$.
-
-S-monotone index selection rules are finite with simplex method and criss-cross.
-\end{frame}
-
 
 
 %------------------------------------------------
