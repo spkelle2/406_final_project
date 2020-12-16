@@ -100,6 +100,42 @@
 %----------------------------------------------------------------------------------------
 
 %------------------------------------------------
+\section{Early Algorithm Complexities} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
+%------------------------------------------------
+\begin{frame}
+	\frametitle{Analysis of Simplex}
+	\begin{itemize}
+		\item Find our pivot column, $j \in I_N$ \\
+		(O(n) operations)
+		\item Find our pivot row, $i \in I_B$ \\
+		(O(m) operations)
+		\item Update our constraints by calculating $A_B^{-1}A$ \\
+		(O($m^2n$) $\text{operations}^{\dagger}$)
+		\item Update objective row by calculating $c_B^T A_B^{-1} A - c^T$ \\
+		(O($mn$) $\text{operations}^{\dagger}$)
+	\end{itemize}
+	$\binom{n}{m}$ possible bases $\implies O(\binom{n}{m} m^2n)$ complexity. \\
+	$\dagger$ assumes $m << n$
+\end{frame}
+
+\begin{frame}
+	\frametitle{Analysis of Revised Simplex}
+	\begin{itemize}
+		\item Find our pivot column, $j \in I_N$ \\
+		($O(n)$ operations)
+		\item Update our constraints by calculating $A_B^{-1}A_j$ \\
+		($O(m^2) \text{operations}^{\dagger}$)
+		\item Find our pivot row, $i \in I_B$ \\
+		($O(m)$ operations)
+		\item Update objective row by calculating $c_B^T A_B^{-1} A - c^T$ \\
+		($O(mn) \text{operations}^{\dagger}$)
+	\end{itemize}
+	$\binom{n}{m}$ possible bases $\implies O(\binom{n}{m} mn)$ complexity. Can we pick better pivots? \\
+	$\dagger$ assumes $m << n$ \\
+\end{frame}
+
+
+%------------------------------------------------
 \section{Pivot Rules} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
 %------------------------------------------------
 \begin{frame}
@@ -229,9 +265,111 @@ Assume that the constraint matrix A of an LO is totally unimodular and vector b 
 \end{corollary}
 
 \end{frame}
+
+\begin{frame}
+	\frametitle{Analysis of Del Pia and Michini}
+	\begin{center}
+		\includegraphics[]{lattice.png} \\
+		Lattice Polytope: a polytope whose vertices are integral.
+	\end{center}
+\end{frame}
+
 %------------------------------------------------
+\begin{frame}
+	\frametitle{Analysis of Del Pia and Michini}
+	Del Pia and Michini proved the following bounds on vertices visited when solving an LP over a lattice polytope.
+	\begin{columns}[T]
+		\begin{column}{.5\textwidth}
+			\begin{itemize}
+				\item simplex algorithm: \\
+				$O(nk \Vert c \Vert_\infty)$
+				\item scaling algorithm: \\
+				$O(nk \text{ log } \Vert c \Vert_\infty)$
+				\item preprocessing algorithm: \\
+				$O(n^4k \text{ log } nk)$
+				\item face-fixing algorithm: \\
+				$O(n^2k \text{ log } nk\alpha)$
+			\end{itemize}
+		\end{column}
+		\begin{column}{.5\textwidth}
+			Simplex Algorithm: \\
+			$x^* = \text{simplex}(P, c, x^0)$
+		\end{column}
+	\end{columns}
+\end{frame}
 
+\begin{frame}
+	\frametitle{Analysis of Del Pia and Michini}
+	\begin{columns}[T]
+		\begin{column}{.5\textwidth}
+			\begin{itemize}
+				\item simplex algorithm: \\
+				$O(nk \Vert c \Vert_\infty)$
+				\item scaling algorithm: \\
+				$O(nk \text{ log } \Vert c \Vert_\infty)$
+				\item preprocessing algorithm: \\
+				$O(n^4k \text{ log } nk)$
+				\item face-fixing algorithm: \\
+				$O(n^2k \text{ log } nk\alpha)$
+			\end{itemize}
+		\end{column}
+		\begin{column}{.5\textwidth}
+			Scaling Algorithm: \\
+			$x^{n+1} = \text{simplex}(P, c^n, x^n)$ \\
+			\begin{center}
+				\includegraphics[]{scaling.png}
+			\end{center}
+		\end{column}
+	\end{columns}
+\end{frame}
 
+\begin{frame}
+	\frametitle{Analysis of Del Pia and Michini}
+	Below is a benefit of scaling.
+	\begin{columns}[T]
+		\begin{column}{.5\textwidth}
+			\begin{center}
+				\includegraphics[]{benefit1.png}
+			\end{center}
+		\end{column}
+		\begin{column}{.5\textwidth}
+			\begin{center}
+				\includegraphics[]{benefit2.png}
+			\end{center}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Analysis of Del Pia and Michini}
+	\begin{columns}[T]
+		\begin{column}{.5\textwidth}
+			\begin{itemize}
+				\item simplex algorithm: \\
+				$O(nk \Vert c \Vert_\infty)$
+				\item scaling algorithm: \\
+				$O(nk \text{ log } \Vert c \Vert_\infty)$
+				\item preprocessing algorithm: \\
+				$O(n^4k \text{ log } nk)$
+				\item face-fixing algorithm: \\
+				$O(n^2k \text{ log } nk\alpha)$
+			\end{itemize}
+		\end{column}
+		\begin{column}{.5\textwidth}
+			Preprocessing and Face-Fixing Algorithms: \\
+			Perturb $c$ to get the most advantage out of the Scaling Algorithm.
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Conclusion}
+	\begin{itemize}
+		\item For $k=1$, Kitahara is still exponential, but Del Pia and Michini are polynomial.
+		\item This result has its caveats.
+		\item A truly polynomial pivot algorithm is yet to be discovered.
+	\end{itemize}
+\end{frame}
 
 \begin{frame}
 \frametitle{References}
