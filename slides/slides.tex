@@ -141,44 +141,12 @@ s_{k+1}^i = \left\{
 \right.
 \end{align*}
 \end{itemize}
-\end{frame}
 
-\begin{frame}[allowframebreaks]
-\frametitle{S-monotone index selection rules}
 What is "s-monotone"?
 
 - For iteration $k-1$ and $k$, $s_{k-1}^i \le s_{k}^i$ for all $i= 1,\cdots, n$.
-\begin{theorem}
-The simplex algorithms and the criss-cross algorithm with s-monotone index selection rules are finite for linear programming problems.
-\end{theorem}
-\framebreak
-Revise steepest-edge rule to be s-monotone version.
-\begin{enumerate}
-\item At the beginning, define a strictly increasing sequence $\{p_k\}$.
-\item At iteration $k$, let
-$$
-\gamma = \max_{j \in N} \frac{c_{B^k}^TA_{B^k}^{-1}A_j - c_j}{\norm{A_{B^k}^{-1}A_j}},
-$$
-and adjust $p_k$ by
- \begin{align*}
-p_k = \left\{
-\begin{aligned}
-&p_k + \delta, & \text{if } p_{k-1} \ge \gamma,\\
-&\gamma, & \text{ otherwise}. 
-\end{aligned}
-\right.
-\end{align*}
-where $\delta > 0$ is a given number. 
-\item Update the $s_{k}$ as
-\begin{align*}
-s_{k}^i = \left\{
-\begin{aligned}
-&p_k, & \text{if } i \in \{i_k, o_k\},\\
-&s_{k-1}^i & \text{ otherwise}. 
-\end{aligned}
-\right.
-\end{align*}
-\end{enumerate}
+
+S-monotone index selection rules are finite with simplex method and criss-cross.
 \end{frame}
 
 
