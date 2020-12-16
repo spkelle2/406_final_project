@@ -34,15 +34,17 @@ Abstract...
 
 
 \section{Introduction}
-The Simplex method was invented by Dantzig in 1947 \cite{dantzig1951maximization} to solve the Linear Programming (LP) problem. It was a tableau based method which pivots between solutions under certain pivoting rules. Another framework of pivot algorithms is the criss-cross method, which was proposed by Zionts at 1969 \cite{fukuda1997criss} and then \cite{terlaky1987finite}, \cite{chang1979least} present a finite criss-cross version developed independently around 1980s. 
+The Simplex method was invented by Dantzig in 1947 \cite{dantzig1951maximization} to solve the Linear Programming (LP) problem. It was a tableau based method which pivots between solutions under certain pivoting rules. Another framework of pivot algorithms is the criss-cross method, which was proposed by Zionts at 1969 \cite{fukuda1997criss} and then \cite{terlaky1987finite}, \cite{chang1979least} present a finite criss-cross version developed independently around 1980s. Much research has been focused since then on improving these original methods.
 
-Many pivot rules have been designed, the result of which is that the simplex method and criss-cross have many variants depending on which pivot rule they employ. Some pivot rules have same motivation of Dantzig's original pivoting rule, which is to find a "best possible" nonbasis variable enter the basis, but these rules could cause cycling when the problem is degenerate (when some rhs coefficients of $b$ are zero). Thus a series pivot rules were proposed to ensure the algorithms are finite. Bland's rule is one of the them. We will present it and several other pivot rules in section \ref{secpivotrules}.
+Early work focused on how to speed up the calculations of pivots as we will see in the revised simplex method. Since then, a lot of focus has been shared between two areas. The first is how to select pivots so that we make as few pivots as possible. Many of these rules have the same motivation of Dantzig's original pivoting rule, which is to find a "best possible" nonbasis variable enter the basis. These rules, however, could cause cycling when the problem is degenerate (when some rhs coefficients of $b$ are zero). Thus, the second major focus area of pivot rules was prompted: a series pivot rules to ensure the algorithms are finite. Most commonly known is Bland's rule. We will present it and several other pivot rules in section \ref{secpivotrules}.
 
 Csizmadia and Illés in 2010 \cite{csizmadia2012s} proved that a general pivot rule - the s-monotone index selection rule, which include Bland's, and two other index selection rules - can ensure the algorithms are finite. They also provide guidance towards revising other pivot rules to be finite. We present their research in section \ref{secsmono}. 
 
 Although simplex method was generally efficient in practice, theoretically, Klee and Minty \cite{wikipediacontributors_2020_kleeminty} in 1970s showed the worst case complexity could happen. For a specific type of LP with $n$ variables and $n$ constraints, using the simplex method with Dantzig's rule, the number of iterations is $2^n-1$. We will demonstrate this in section \ref{secworst}.
 
-Kitahara and Mizuno in 2011 \cite{kitahara2013bound} analyzed the complexity of the simplex method with certain pivot rules. They came up with a bound that is a polynomial of $n, m$, and a special ratio. We showed their analysis in section \ref{seckita}.
+Kitahara and Mizuno in 2011 \cite{kitahara2013bound} analyzed the complexity of the simplex method with certain pivot rules. They came up with a bound that is a polynomial of $n, m$, and a special ratio. We showed their analysis in section \ref{seckita}. We will go on to see that Del Pia and Michini earlier this year in \cite{pia} further improve upon this bound.
+
+At the end of this paper, we will draw some connections among all the above mentioned topics. We will then close with a discussion on which of the above topics live on in software implementations today.
 
 \section{Notations}
 In this paper, we consider the primal Linear Optimization (LO) problem of the standard form
