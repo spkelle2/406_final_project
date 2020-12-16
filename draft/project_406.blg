@@ -1,28 +1,25 @@
-This is BibTeX, Version 0.99d
-Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+This is BibTeX, Version 0.99d (TeX Live 2019)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: project_406.aux
-Reallocating 'name_of_file' (item size: 1) to 9 items.
 The style file: plainurl.bst
-Reallocating 'name_of_file' (item size: 1) to 14 items.
-Reallocating 'glb_str_end' (item size: 4) to 20 items.
-Reallocating 'glb_str_ptr' (item size: 4) to 20 items.
-Reallocating 'global_strs' (item size: 1) to 4000000 items.
-Reallocating 'singl_function' (item size: 4) to 100 items.
-Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
+Reallocated global_strs (elt_size=20001) to 20 items from 10.
+Reallocated glb_str_end (elt_size=4) to 20 items from 10.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: reference.bib
 Warning--entry type for "largest" isn't style-file defined
 --line 92 of file reference.bib
 Warning--empty journal in pia
 You've used 17 entries,
-            2882 wiz_defined-function locations,
-            728 strings with 7429 characters,
-and the built_in function-call counts, 6509 in all, are:
-= -- 669
+            2849 wiz_defined-function locations,
+            721 strings with 7409 characters,
+and the built_in function-call counts, 6356 in all, are:
+= -- 652
 > -- 182
 < -- 1
 + -- 69
 - -- 46
-* -- 311
+* -- 294
 := -- 933
 add.period$ -- 49
 call.type$ -- 17
@@ -30,15 +27,15 @@ change.case$ -- 74
 chr.to.int$ -- 0
 cite$ -- 18
 duplicate$ -- 172
-empty$ -- 681
+empty$ -- 647
 format.name$ -- 46
-if$ -- 1725
+if$ -- 1657
 int.to.chr$ -- 0
 int.to.str$ -- 17
 missing$ -- 13
 newline$ -- 86
 num.names$ -- 34
-pop$ -- 163
+pop$ -- 146
 preamble$ -- 1
 purify$ -- 57
 quote$ -- 0
