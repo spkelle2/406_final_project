@@ -5,6 +5,12 @@ Carla~Michini Alberto Del~Pia.
 \newblock Short simplex paths in lattice polytopes.
 \newblock 2020.
 
+\bibitem{bixby}
+Robert Bixby.
+\newblock Robert bixby: Solving linear programs: The dual simplex algorithm
+  (3/3): Implementing the algorithm, 2020.
+\newblock URL: \url{https://youtu.be/uccbVoamiUM}.
+
 \bibitem{bland}
 Robert Bland.
 \newblock New finite pivoting rules for the simplex method.
