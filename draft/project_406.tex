@@ -42,7 +42,7 @@ Csizmadia and Illés in 2010 \cite{csizmadia2012s} proved that a general pivot r
 
 Although simplex method was generally efficient in practice, theoretically, Klee and Minty \cite{wikipediacontributors_2020_kleeminty} in 1970s showed the worst case complexity could happen. For a specific type of LP with $n$ variables and $n$ constraints, using the simplex method with Dantzig's rule, the number of iterations is $2^n-1$. We will demonstrate this in section \ref{secworst}.
 
-Kitahara and Mizuno in 2011 \cite{kitahara2013bound} analyzed the complexity of the simplex method with certain pivot rules. They came up with a bound that is a polynomial of $n, m$, and a special ratio when $A$ is unimodular and $b$ is integral. We showed their analysis in section \ref{seckita}.
+Kitahara and Mizuno in 2011 \cite{kitahara2013bound} analyzed the complexity of the simplex method with certain pivot rules. They came up with a bound that is a polynomial of $n, m$, and a special ratio. We showed their analysis in section \ref{seckita}.
 
 \section{Notations}
 In this paper, we consider the primal Linear Optimization (LO) problem of the standard form
@@ -223,8 +223,8 @@ s_{k}^i = \left\{
 In such a way the steepest edge method is combined with LIFO and is an s-monotone index rules (thus finite). It can also be combined with MOSV similarly. Consequently, they state an possible research direction is that to analyze the complexity of s-monotone index selection rules.
 
 \section{Contemporary complexity analysis}
-\subsection{When will worst case happen} \label{secworst}
-Given $m$ constraints and $n$ variables, there are at most $\binom{n}{m}$ possible basis. When $m=\frac{n}{2}$, $\binom{n}{m}$ get its maximum $\binom{n}{\frac{n}{2}}\approx \sqrt{\frac{2}{\pi n}}2^n$,  which is the worst complexity. Klee and Minty defined a type of LO problems that primal simplex with Dantzig's rule may visit all vertices before finally finding the optimal solution. Detailed introduction of Klee Minty cube can be referred to \cite{vanderbei2020linear}. Here we demonstrate some examples. Klee Minty cube is defined as following LO problem \ref{eq:klLO}. The coefficients might be different in other articles. 
+\subsection{When Will the Worst Case Happen} \label{secworst}
+Given $m$ constraints and $n$ variables, there are at most $\binom{n}{m}$ possible basis combinations. When $m=\frac{n}{2}$, we see $\binom{n}{m}$ reaches its maximum value $\binom{n}{\frac{n}{2}}\approx \sqrt{\frac{2}{\pi n}}2^n$,  which is the worst complexity possible for simplex. Klee and Minty defined a type of LO problem that primal simplex with Dantzig's rule may visit all vertices before finally finding the optimal solution. Detailed introduction of Klee Minty cube can be referred to \cite{vanderbei2020linear}. Here we demonstrate some examples. The Klee Minty cube is defined as the following LO problem \ref{eq:klLO}. 
 \begin{align}
 \begin{split}
 \max &\sum_{j=1}^n 2^{n-j}x_j \\
@@ -248,7 +248,7 @@ When $n=2$ and $n=3$ the 2-d and 3-d Klee Minty LO problems are
 & x_1 \ge 0,\ x_2 \ge 0, \ x_3 \ge 0.
 \end{split}
 \end{align*}
-The feasible region of 2-d and 3-d Klee Minty problems are shown in Figure \ref{fig:kmcube}. They look like "squashed" square and cube.
+The feasible region of 2-d and 3-d Klee Minty problems are shown in Figure \ref{fig:kmcube}. They look like a "squashed" square and cube.
 \begin{figure}
     \centering
     \subfigure[]{\includegraphics[width=0.38\textwidth]{klee_cube_d2.png}}
@@ -280,10 +280,10 @@ $x_2$ & 25  & 4  & 1  & 0  & 1  &                 \\ \hhline{======}
 \end{table}
 By taking a look at the constraints, the first constraint says that $x_1 \le 5$. The second constraint says that $x_2 \le 25$ and $x_2$ is smaller depending on how big $x_1$ is. Similarly, the third constraint says that $x_3 \le 125$ (again, smaller depending on $x_1$ and $x_2$). Therefore, the constraints are approximately a set of upper bounds, which means that the feasible region is virtually a stretched n-dimensional hypercube with $2^n$ vertices. For such problem, primal simplex method with Dantzig's rule will iterate $2^n -1$ pivot steps.
 
-\subsection{Kitahara and Mizuno analysis} \label{seckita}
+\subsection{Kitahara and Mizuno Analysis} \label{seckita}
 In 2011, Kitahara and Mizuno \cite{kitahara2013bound} proved the complexity can be bounded by a polynomial of $m, n$ and a special ratio. They utilized the analysis of Ye (2010) \cite{ye2010simplex} for Markov Decision Problem. We summarize the key results of Kitahara and Mizuno \cite{kitahara2013bound} in this section. 
 
-We define some new notations. A BFS is said to be a basic feasible solution for primal LO problem (\ref{LOprimal}). Let $\delta$ and $\gamma$ be the minimum and the maximum values of all the positive elements of all BFSs. That is, for any BFS $\hat{x} \in \Rmbb^{n}$, if $\hat{x}_j \neq 0, \ j \in \{1, \cdots, n\}$ where the subscript $j$ represent the $j$th entry of $\hat{x}$, we have 
+We define some new notations. A BFS is said to be a basic feasible solution for primal LO problem (\ref{LOprimal}). Let $\delta$ and $\gamma$ be the minimum and the maximum values of all the positive elements of all BFSs. That is, for any BFS $\hat{x} \in \Rmbb^{n}$, if $\hat{x}_j \neq 0, \ j \in \{1, \cdots, n\}$ where the subscript $j$ represents the $j$th entry of $\hat{x}$, we have 
 \begin{align}
 \delta \le \hat{x}_j \le \gamma. \label{eq:bfsbound}
 \end{align} 
@@ -303,16 +303,17 @@ different basic feasible solutions. \label{KTheorem1}
 
 The proof can be referred to Kitahara and Mizuno \cite{kitahara2013bound}. Therefore the bound (\ref{kmcomplexity}) is a polynomial of $n, m$ and $\frac{\gamma}{\delta}$ with assumptions that the primal LO \ref{LOprimal} has optimal solutions and is nondegenerate. Therefore, for Klee-Minty problem \ref{eq:klLO}, $\gamma = 5^n$ while $\delta = 5$ and there ratio is exponential to $n$. This theoretically explains the complexity of Klee-Minty cube problem.
 
-In practical, the ratio of $\frac{\gamma}{\delta}$ is not easy to get prior to solving the problem. However, for some specific LO, $\frac{\gamma}{\delta}$ can be bounded using LO coefficients. 
-\subsubsection{LO with a totally unimodular matrix A and integral b}
+In practice, the ratio of $\frac{\gamma}{\delta}$ is not easy to get prior to solving the problem. However, for some specific LP, $\frac{\gamma}{\delta}$ can be bounded using LP coefficients. 
+
+\subsubsection{LP with a Totally Unimodular Matrix A and Integral b}
 \begin{definition}
 A matrix A is totally unimodular if every square submatrix has determinant 0, -1 or 1. In particular, this implies that all entries are 0, -1 or 1.
 \end{definition}
-Totally unimodular matrices are very well behaved, because they always define polytopes with integer vertices, as long as the right-hand side is integer-valued. Many practical problem can be modelled using totally unimodular matrices, such as the node arc incidence matrix of a directed graph.
+Totally unimodular matrices are very well behaved because they always define polytopes with integer vertices, as long as the right-hand side is integer-valued. Many practical problem can be modeled using totally unimodular matrices, such as the node arc incidence matrix of a directed graph.
 
-With totally unimodular $A$ and integral $b$, all the elements of any BFS are integers, so $\delta \ge 1$. And for a BFS $x = (x_B, x_N)$, $x_N = 0$ and $x_B = A_B^{-1}b \ge 0$, since $A_B$ is totally unimodular, $A_B^{-1}$ is unimodular \cite{kitahara2013bound} and all the elements of $A_B^{-1}$ are $-1, 0$ or $1$. Thus for any $j \in B$ we have $x_j \le \norm{b}_1$, which implies $\gamma \le \norm{b}_1$. Thus $\frac{\gamma}{\delta} \le \frac{\norm{b}_1}{1}$. Thus by Theorem \ref{KTheorem1}, we have
+With totally unimodular $A$ and integral $b$, all the elements of any BFS are integers, so $\delta \ge 1$. For a BFS $x = (x_B, x_N)$, $x_N = 0$ and $x_B = A_B^{-1}b \ge 0$. Since $A_B$ is totally unimodular, $A_B^{-1}$ is unimodular \cite{kitahara2013bound}, and all the elements of $A_B^{-1}$ are $-1, 0$ or $1$. Thus for any $j \in B$, we have $x_j \le \norm{b}_1$, which implies $\gamma \le \norm{b}_1$. Thus $\frac{\gamma}{\delta} \le \frac{\norm{b}_1}{1}$. Thus by Theorem \ref{KTheorem1}, we have
 \begin{corollary}
-Assume that the constraint matrix A of LO (\ref{LOprimal}) is totally unimodular and the constraint vector b is integral. When we apply the simplex method with the Dantzig's rule or the best improvement rule for LO (\ref{LOprimal}), we encounter at most $n\lceil m \norm{b}_1\log(m\norm{b}_1)\rceil$ different basic feasible solutions. Moreover if the LO (\ref{LOprimal}) is nondegenerate, this is the most iterations to find optimal solution. 
+Assume that the constraint matrix A of an LP (\ref{LOprimal}) is totally unimodular and the constraint vector b is integral. When we apply the simplex method with the Dantzig's rule or the best improvement rule for LO (\ref{LOprimal}), we encounter at most $n\lceil m \norm{b}_1\log(m\norm{b}_1)\rceil$ different basic feasible solutions. Moreover if the LO (\ref{LOprimal}) is nondegenerate, this is the most iterations to find optimal solution. 
 \end{corollary}
 
 %\section{title}
@@ -380,7 +381,7 @@ With these four algorithms, Del Pia and Michini go on to prove the following res
 		\item Recall that the Scaling Algorithm's length is $O(nk \text{ log}\Vert \tilde{c} \Vert_\infty)$, which in this case becomes $O(nk \text{ log } n k \alpha)$
 	\end{itemize}
 \end{itemize}
-Furthermore, for each algorithm, the authors show for a given set of inputs that the solution is the same as if those inputs had been run directly against simplex.
+Furthermore, for each algorithm, the authors show for a given set of inputs that the solution is the same as if those inputs had been run directly against simplex. Also note that since these algorithms have finite upper bounds on the number of iterations, they converge.
 
 Now when looking at the last two results above, we appear to see a polynomial complexity for solving a problem with simplex (since we showed pivot calculations earlier to be polynomial). Now at first glance this might be exciting, but let's take a moment to recall their hypothesis. Del Pia and Michini assume our feasible vertices form a lattice polytope, which can rule out many LP's. Additionally, they state that the complexity is in terms of the number of vertices simplex visits, which in the case of a problem with degeneracy, is not the same as the number of pivots. So although this complexity, as we'll see next, is a nice improvement over the previous case of solving this class of LP, this class is a rather small subspace of all LP's. This isn't to say this work is insignificant, however, as much as it is to say there would be great value in further research to generalize this method to solve a wider variety of problems.
 

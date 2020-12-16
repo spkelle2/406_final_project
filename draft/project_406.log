@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.7) (preloaded format=pdflatex 2020.8.26)  15 DEC 2020 21:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.7) (preloaded format=pdflatex 2020.8.26)  15 DEC 2020 22:12
 entering extended mode
 **./project_406.tex
 (project_406.tex
@@ -514,12 +514,12 @@ r/m/n/10.95 := \OMS/cmsy/m/n/10.95 f[] [][] [] \OT1/cmr/m/n/10.95 :
  []
 
 [3] [4] [5] [6] [7] [8]
-<klee_cube_d2.png, id=194, 578.16pt x 578.16pt>
+<klee_cube_d2.png, id=193, 578.16pt x 578.16pt>
 File: klee_cube_d2.png Graphic file (type png)
 <use klee_cube_d2.png>
 Package pdftex.def Info: klee_cube_d2.png  used on input line 254.
 (pdftex.def)             Requested size: 136.80176pt x 136.79393pt.
-<klee_cube_d3.png, id=196, 433.62pt x 289.08pt>
+<klee_cube_d3.png, id=195, 433.62pt x 289.08pt>
 File: klee_cube_d3.png Graphic file (type png)
 <use klee_cube_d3.png>
 Package pdftex.def Info: klee_cube_d3.png  used on input line 255.
@@ -539,21 +539,21 @@ nored
                                                   \fi \fi 
 l.294 \begin{align}
                    ] [11] [12] [13] [14] (project_406.bbl [15])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 400.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 401.
  [16]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 400.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 401.
 
 (project_406.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 400.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 400.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 401.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 401.
 Package rerunfilecheck Info: File `project_406.out' has not changed.
-(rerunfilecheck)             Checksum: 66EBE976F37221588283A6865B72955E;1753.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 400.
+(rerunfilecheck)             Checksum: 6AECF6900C1C76B03CB875C09CD6426C;1757.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 401.
  ) 
 Here is how much of TeX's memory you used:
  8995 strings out of 481212
  131187 string characters out of 2905973
- 412150 words of memory out of 3000000
+ 413158 words of memory out of 3000000
  24318 multiletter control sequences out of 15000+200000
  544262 words of font info for 63 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -580,7 +580,7 @@ l/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/seanp/App
 Data/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/
 seanp/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.
 pfb>
-Output written on project_406.pdf (16 pages, 593195 bytes).
+Output written on project_406.pdf (16 pages, 594020 bytes).
 PDF statistics:
  366 PDF objects out of 1000 (max. 8388607)
  88 named destinations out of 1000 (max. 500000)
