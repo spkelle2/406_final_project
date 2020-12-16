@@ -52,11 +52,6 @@ Tomonari Kitahara and Shinji Mizuno.
   simplex method.
 \newblock {\em Mathematical Programming}, 137(1-2):579--586, 2013.
 
-\bibitem{klee1972good}
-V.~Klee and G.J. Minty.
-\newblock How good is the simplex algorithm.
-\newblock {\em Inequalities}, 3(3):159--175, 1972.
-
 \bibitem{largest}
 University of~Waterloo.
 \newblock Lecture note of co350 linear programming chapter 6: The simplex

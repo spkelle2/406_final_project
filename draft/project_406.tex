@@ -44,11 +44,11 @@ Although simplex method was generally efficient in practical, theoretically, Kle
 
 Kitahara and Mizuno in 2011 \cite{kitahara2013bound} analyzed the complexity of the simplex method with certain pivot rules. They came up with a bound that is a polynomial of $n, m$ and special ratio. And such ratio is some constant in certain LO problems, such as when $A$ is unimodular and $b$ is integral. We showed their analysis \ref{seckita}.
 
-\section{The pivot algorithm for LO}
-In this paper, we consider the primal Linear optimization problem of the standard form
+\section{Notations}
+In this paper, we consider the primal Linear optimization (LO) problem of the standard form
 \begin{align}
 \begin{split}
-\min \quad &c^Tx\\
+\min_x \quad &c^Tx\\
 \text{s.t.} \quad &Ax = b\\
 &x \ge 0\\
  x \in \Rmbb^n,\ c \in \Rmbb^n,\ &A \in \Rmbb^{m\times n},\ b \in \Rmbb^m   
@@ -57,14 +57,16 @@ In this paper, we consider the primal Linear optimization problem of the standar
 And the dual problem is 
 \begin{align}
 \begin{split}
-\min \quad &b^Ty\\
-\text{s.t.} \quad &A^y + s = c\\
+\min_{y,s} \quad &b^Ty\\
+\text{s.t.} \quad &A^Ty + s = c\\
 &s \ge 0\\
  y \in \Rmbb^m&,\ s \in \Rmbb^n   
 \end{split} \label{LOdual}
 \end{align}
+Table \ref{tbnotation} lists notations we will refer in the following part.
 \begin{table}[h]
 \caption{Notation}
+\label{tbnotation}
 \centering
 \begin{tabular}{lll}
 \hline
@@ -76,7 +78,7 @@ $N$ & set of index of nonbasis solution $x_N$, $|N| = n-m$&  \\
 \end{tabular}
 \end{table}
 
-\section{Complexity}
+\section{Pivot algorithms and complexity}
 \subsection{Historical Review}
 As we will go on to see in this article, much of our conversation will revolve around advancements in pivoting rules that led to performance increases for pivot algorithms. Before getting there, however, we would like to begin by discussing a few key improvements to other aspects of pivot algorithms that contributed to research focus in this space. We will start by going all the way back to the beginning.
 
@@ -235,9 +237,9 @@ s_{k}^i = \left\{
 \end{enumerate}
 In such way the steepest edge method is combined with LIFO, and is s-monotone index rules (finite). It can also be combined with MOSV similarly. Consequently, they state an possible research direction is that to analyze the complexity of s-monotone index selection rules.
 
-\section{Number of Iterations}
+\section{Contemporary complexity analysis}
 \subsection{When will worst case happen} \label{secworst}
-Given $m$ constraints and $n$ variables, there are at most $\binom{n}{m}$ possible basis, which is the biggest upper bound for the number of iterations for pivot algorithms. When $m=\frac{n}{2}$, $\binom{n}{m}$ get its maximum $\binom{n}{\frac{n}{2}}\approx \sqrt{\frac{2}{\pi n}}2^n$. Klee and Minty defined a type of LO problems which some pivot algorithms may visit all vertices before finally finding the optimal solution. Detailed introduction of Klee Minty cube can be referred to \cite{vanderbei2020linear}. Here we demonstrate some examples. Klee Minty cube is defined as following LO problem \ref{eq:klLO}. The coefficients might be different in different articles. 
+Given $m$ constraints and $n$ variables, there are at most $\binom{n}{m}$ possible basis. When $m=\frac{n}{2}$, $\binom{n}{m}$ get its maximum $\binom{n}{\frac{n}{2}}\approx \sqrt{\frac{2}{\pi n}}2^n$,  which is the worst complexity. Klee and Minty defined a type of LO problems that primal simplex with Dantzig's rule may visit all vertices before finally finding the optimal solution. Detailed introduction of Klee Minty cube can be referred to \cite{vanderbei2020linear}. Here we demonstrate some examples. Klee Minty cube is defined as following LO problem \ref{eq:klLO}. The coefficients might be different in other articles. 
 \begin{align}
 \begin{split}
 \max &\sum_{j=1}^n 2^{n-j}x_j \\
@@ -261,7 +263,7 @@ When $n=2$ and $n=3$ the 2-d and 3-d Klee Minty LO problems are
 & x_1 \ge 0,\ x_2 \ge 0, \ x_3 \ge 0.
 \end{split}
 \end{align*}
-The feasible region of 2-d and 3-d Klee Minty problems are shown in Figure \ref{fig:kmcube}. They look like "squashed" square and cube, which are very ill-conditioned.
+The feasible region of 2-d and 3-d Klee Minty problems are shown in Figure \ref{fig:kmcube}. They look like "squashed" square and cube.
 \begin{figure}
     \centering
     \subfigure[]{\includegraphics[width=0.38\textwidth]{klee_cube_d2.png}}
@@ -269,7 +271,7 @@ The feasible region of 2-d and 3-d Klee Minty problems are shown in Figure \ref{
     \caption{(a) Feasible region of 2-d Klee Minty Cube with contour lines (b) Feasible region of 3-d Klee Minty Cube}
     \label{fig:kmcube}
 \end{figure}
-We apply primal simplex method (a) least-index and (b) Dantzig pivot rules to demonstrate the number of pivot steps. The tableau result of least-index pivot rule is shown in Table \ref{Table: tableau}. The results of Dantzig pivot rule and least-index rule just coincide in this example because in first iteration, the nonbasis with the most negative reduced cost is $x_1$ which is the entering nonbasis by least-index rule, too. 
+We apply primal simplex method (a) least-index and (b) Dantzig pivot rules to demonstrate the number of iterations. Table \ref{Table: tableau} shows the tableau of least-index primal simplex method. Dantzig's rule coincides with result of least-index rule in this example. 
 
 \begin{table}[H]
 \caption{Tableau of primal simplex method (least index version), the element with * is the pivot element. }
@@ -291,10 +293,10 @@ $s_1$ & 5   & 1  & 0  & 1  & 0  &                 \\
 $x_2$ & 25  & 4  & 1  & 0  & 1  &                 \\ \hhline{======}
 \end{tabular}
 \end{table}
-By taking a look on the constraints, the first constraint says that $x_1$ is no bigger than 5. With this in mind, the second constraint says that $x_2$ has an upper bound of about 25, depending on how big $x_1$ is. Similarly, the third constraint says that $x_3$ is roughly no bigger than 125 (again, this statement needs some adjustment depending on the sizes of $x_1$ and $x_2$). Therefore, the constraints are approximately just a set of upper bounds, which means that the feasible region is virtually a stretched n-dimensional hypercube, which has $2^n$ vertices. And Klee and Minty \cite{klee1972good} showed that Dantzig pivot rule with primal simplex algorithm will conduct $2^n -1$ pivot steps.
+By taking a look at the constraints, the first constraint says that $x_1 \le 5$. The second constraint says that $x_2 \le 25$ and $x_2$ is smaller depending on how big $x_1$ is. Similarly, the third constraint says that $x_3 \le 125$ (again, smaller depending on $x_1$ and $x_2$). Therefore, the constraints are approximately a set of upper bounds, which means that the feasible region is virtually a stretched n-dimensional hypercube with $2^n$ vertices. For such problem, primal simplex method with Dantzig's rule will iterate $2^n -1$ pivot steps.
 
 \subsection{Kitahara and Mizuno analysis} \label{seckita}
-In 2011, Kitahara and Mizuno \cite{kitahara2013bound} proved the complexity can be bounded by a polynomial of $m, n$ and a special ratio. They utilized the analysis of Ye (2010) \cite{ye2010simplex} for Markov Decision Problem. We will summarize the key results of Kitahara and Mizuno \cite{kitahara2013bound} in this section. 
+In 2011, Kitahara and Mizuno \cite{kitahara2013bound} proved the complexity can be bounded by a polynomial of $m, n$ and a special ratio. They utilized the analysis of Ye (2010) \cite{ye2010simplex} for Markov Decision Problem. We summarize the key results of Kitahara and Mizuno \cite{kitahara2013bound} in this section. 
 
 We define some new notations. A BFS is said to be a basic feasible solution for primal LO problem (\ref{LOprimal}). Let $\delta$ and $\gamma$ be the minimum and the maximum values of all the positive elements of all BFSs. That is, for any BFS $\hat{x} \in \Rmbb^{n}$, if $\hat{x}_j \neq 0, \ j \in \{1, \cdots, n\}$ where the subscript $j$ represent the $j$th entry of $\hat{x}$, we have 
 \begin{align}
@@ -313,9 +315,10 @@ different basic feasible solutions. \label{KTheorem1}
 \begin{corollary}
  If the primal problem is nondegenerate, the simplex method finds an optimal solution in at most $n\lceil m \frac{\gamma}{\delta}\log(m\frac{\gamma}{\delta})\rceil$ iterations.
 \end{corollary}
-The proof can be referred to Kitahara and Mizuno \cite{kitahara2013bound}. 
 
-Therefore the bound (\ref{kmcomplexity}) is a polynomial of $n, m$ and $\frac{\gamma}{\delta}$ with assumptions that the primal LO \ref{LOprimal} has optimal solutions and is nondegenerate. In practical, the ratio of $\frac{\gamma}{\delta}$ is not easy to get prior to solving the problem. However, for some specific form of LO, $\frac{\gamma}{\delta}$ can be bounded using  LO coefficients. 
+The proof can be referred to Kitahara and Mizuno \cite{kitahara2013bound}. Therefore the bound (\ref{kmcomplexity}) is a polynomial of $n, m$ and $\frac{\gamma}{\delta}$ with assumptions that the primal LO \ref{LOprimal} has optimal solutions and is nondegenerate. Therefore, for Klee-Minty problem \ref{eq:klLO}, $\gamma = 5^n$ while $\delta = 5$ and there ratio is exponential to $n$. This theoretically explains the complexity of Klee-Minty cube problem.
+
+In practical, the ratio of $\frac{\gamma}{\delta}$ is not easy to get prior to solving the problem. However, for some specific LO, $\frac{\gamma}{\delta}$ can be bounded using LO coefficients. 
 \subsubsection{LO with a totally unimodular matrix A and integral b}
 \begin{definition}
 A matrix A is totally unimodular if every square submatrix has determinant 0, -1 or 1. In particular, this implies that all entries are 0, -1 or 1.
