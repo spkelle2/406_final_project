@@ -34,9 +34,15 @@ Abstract...
 
 
 \section{Introduction}
-Simplex method was invented by Dantzig in 1947 \cite{dantzig1951maximization} to solve the Linear Optimization (LP) problem. It was tableau pivoting based method and pivoting under certain rules. The rules can be flexible so many simplex variants have been developed afterwards. Another framework of pivot algorithm is criss-cross method, which was proposed by Zionts at 1969 \cite{fukuda1997criss} and then \cite{terlaky1987finite}, \cite{chang1979least} present finite criss-cross version independently around 1980s. Some variant pivot methods appeared by proposing different pivots rules. We will describe them in the following section. \textbf{Mention Short simplex paths}\\
-Although simplex method was generally efficient in practical, theoretically, Klee and Minty \cite{wikipediacontributors_2020_kleeminty} in 1970s showed the worst case that, a specific type of LO problem, a variant of simplex method visited all vertices (exponential steps) until solve the problem to be optimal. The feasible region of such problems was call Klee-Minty cube whose corners have been "squashed". We will demonstrate some examples in the following section. For now, it is still an unaccomplished problem that to design a pivot algorithm and prove that the number of pivot steps is bounded by polynomial of number of variables and constraints.
-The paper is structured as follows: in Section 2 we define the LO problem, list the notation and (\textbf{might present some algorithms}); in section 3 we discuss the complexity of pivot algorithms and give a brief conclusion in the final section.
+Simplex method was invented by Dantzig in 1947 \cite{dantzig1951maximization} to solve the Linear Optimization (LP) problem. It was tableau pivoting based method and pivoting under certain pivot rules. Another framework of pivot algorithm is criss-cross method, which was proposed by Zionts at 1969 \cite{fukuda1997criss} and then \cite{terlaky1987finite}, \cite{chang1979least} present finite criss-cross version independently around 1980s. 
+
+ Many pivots rules are designed. And simplex method and criss-cross can be flexibly combined with one of pivot rules so that becomes variant algorithms. Some pivot rules are have same motivation of Dantzig's rule, which is to find a "possibly best" nonbasis variable enter the basis. But these rules could cause cycling when the problem is degenerate (when some rhs coefficients of $b$ are zero). Thus a series pivot rules was proposed to ensure the algorithms are finite. Bland's rule is one of the them. We will present several pivot rules in section \ref{secpivotrules}.
+
+ Csizmadia and Illés in 2010 \cite{csizmadia2012s} proved that a general pivot rule - s-monotone index selection rule, which include Bland's, and two other index selection rules, can ensure the algorithms to be finite. They also provide a guidance of revising other pivot rules to be finite version. We present their research in section \ref{secsmono}. 
+
+Although simplex method was generally efficient in practical, theoretically, Klee and Minty \cite{wikipediacontributors_2020_kleeminty} in 1970s showed the worst complexity could happen. For a specific type of LO problem with $n$ variables and $n$ constraints, using the simplex method with Dantzig's rule, the number of iterations is $2^n-1$We will demonstrate this in section \ref{secworst}.
+
+Kitahara and Mizuno in 2011 \cite{kitahara2013bound} analyzed the complexity of the simplex method with certain pivot rules. They came up with a bound that is a polynomial of $n, m$ and special ratio. And such ratio is some constant in certain LO problems, such as when $A$ is unimodular and $b$ is integral. We showed their analysis \ref{seckita}.
 
 \section{The pivot algorithm for LO}
 In this paper, we consider the primal Linear optimization problem of the standard form
@@ -110,7 +116,7 @@ Simplex tells us to then pivot through bases until we find one that is either op
 \subsubsection{Criss-cross algorithm}
 The difference between the criss-cross algorithm and simplex method is that criss-cross does not maintain either primal or dual feasibility, and thus omit the ratio test procedure. The similarities is that both simplex method and criss-cross algorithm are pivot algorithms and need some rules to choose the pivot element in each iteration. Such rule is crucial for the complexity and the finiteness of the whole algorithms. 
  
-\subsection{Pivoting rules}
+\subsection{Pivoting rules} \label{secpivotrules}
 From now on, we focus on the simplex method unless otherwise stated. In simplex method, the decision of which nonbasis enter and which basis leaves (if more than one basis satisfy ratio test), is flexible. Thus many pivot rules are designed and we show some of them. 
 \subsubsection{Dantzig's rule}
 To make a pivot, Dantzig said to do the following:
@@ -170,7 +176,7 @@ MOSV rule is to select the variable that has been selected the largest amount of
 
 Also, when choice by LIFO (or MOSV) rule is not unique, we use Dantzig's rule. This called Hybrid-LIFO (Hybrid-MOSV) \cite{zhang1999new}.
 
-\subsection{S-monotone index selection rules}
+\subsection{S-monotone index selection rules} \label{secsmono}
 Csizmadia and Illés in 2010 \cite{csizmadia2012s} proposed that Bland, LIFO, MOSV pivot rules are s-monotone index selection rules. They provide a explicit definition of s-monotone index selection rules in \cite{csizmadia2012s}. The key steps of s-monotone rule are
 \begin{enumerate}
 \item Maintain a sequence of vectors $s_k \in \Ncal^n$, where $k$ is the iteration number. 
@@ -230,7 +236,7 @@ s_{k}^i = \left\{
 In such way the steepest edge method is combined with LIFO, and is s-monotone index rules (finite). It can also be combined with MOSV similarly. Consequently, they state an possible research direction is that to analyze the complexity of s-monotone index selection rules.
 
 \section{Number of Iterations}
-\subsection{When will worst case happen}
+\subsection{When will worst case happen} \label{secworst}
 Given $m$ constraints and $n$ variables, there are at most $\binom{n}{m}$ possible basis, which is the biggest upper bound for the number of iterations for pivot algorithms. When $m=\frac{n}{2}$, $\binom{n}{m}$ get its maximum $\binom{n}{\frac{n}{2}}\approx \sqrt{\frac{2}{\pi n}}2^n$. Klee and Minty defined a type of LO problems which some pivot algorithms may visit all vertices before finally finding the optimal solution. Detailed introduction of Klee Minty cube can be referred to \cite{vanderbei2020linear}. Here we demonstrate some examples. Klee Minty cube is defined as following LO problem \ref{eq:klLO}. The coefficients might be different in different articles. 
 \begin{align}
 \begin{split}
@@ -287,7 +293,7 @@ $x_2$ & 25  & 4  & 1  & 0  & 1  &                 \\ \hhline{======}
 \end{table}
 By taking a look on the constraints, the first constraint says that $x_1$ is no bigger than 5. With this in mind, the second constraint says that $x_2$ has an upper bound of about 25, depending on how big $x_1$ is. Similarly, the third constraint says that $x_3$ is roughly no bigger than 125 (again, this statement needs some adjustment depending on the sizes of $x_1$ and $x_2$). Therefore, the constraints are approximately just a set of upper bounds, which means that the feasible region is virtually a stretched n-dimensional hypercube, which has $2^n$ vertices. And Klee and Minty \cite{klee1972good} showed that Dantzig pivot rule with primal simplex algorithm will conduct $2^n -1$ pivot steps.
 
-\subsection{Kitahara and Mizuno analysis}
+\subsection{Kitahara and Mizuno analysis} \label{seckita}
 In 2011, Kitahara and Mizuno \cite{kitahara2013bound} proved the complexity can be bounded by a polynomial of $m, n$ and a special ratio. They utilized the analysis of Ye (2010) \cite{ye2010simplex} for Markov Decision Problem. We will summarize the key results of Kitahara and Mizuno \cite{kitahara2013bound} in this section. 
 
 We define some new notations. A BFS is said to be a basic feasible solution for primal LO problem (\ref{LOprimal}). Let $\delta$ and $\gamma$ be the minimum and the maximum values of all the positive elements of all BFSs. That is, for any BFS $\hat{x} \in \Rmbb^{n}$, if $\hat{x}_j \neq 0, \ j \in \{1, \cdots, n\}$ where the subscript $j$ represent the $j$th entry of $\hat{x}$, we have 
@@ -319,26 +325,6 @@ Totally unimodular matrices are very well behaved, because they always define po
 With totally unimodular $A$ and integral $b$, all the elements of any BFS are integers, so $\delta \ge 1$. And for a BFS $x = (x_B, x_N)$, $x_N = 0$ and $x_B = A_B^{-1}b \ge 0$, since $A_B$ is totally unimodular, $A_B^{-1}$ is unimodular \cite{kitahara2013bound} and all the elements of $A_B^{-1}$ are $-1, 0$ or $1$. Thus for any $j \in B$ we have $x_j \le \norm{b}_1$, which implies $\gamma \le \norm{b}_1$. Thus $\frac{\gamma}{\delta} \le \frac{\norm{b}_1}{1}$. Thus by Theorem \ref{KTheorem1}, we have
 \begin{corollary}
 Assume that the constraint matrix A of LO (\ref{LOprimal}) is totally unimodular and the constraint vector b is integral. When we apply the simplex method with the Dantzig's rule or the best improvement rule for LO (\ref{LOprimal}), we encounter at most $n\lceil m \norm{b}_1\log(m\norm{b}_1)\rceil$ different basic feasible solutions. Moreover if the LO (\ref{LOprimal}) is nondegenerate, this is the most iterations to find optimal solution. 
-\end{corollary}
-
-\subsubsection{Markov decision problem}
-In \cite{kitahara2013bound}, Kitahara and Mizuno also extended the theory for Markov decision problem (MDP), where the number of possible actions is two, is formulated as
-\begin{align}
-\begin{split}
-\min \quad &c_1^Tx_1 + c_2^Tx_2 \\
-\text{s.t. } \quad &(I-\theta P_1)x_1 + (I - \theta P_2)x_2 = e, \\
-&x_1, x_2 \ge 0
-\end{split}
-\end{align}
-where $I$ is the $m \times m$ identity matrix, $P_1, P_2$ are $m\times m$ Markov matrices (Markov transition matrices), $\theta$ is a discount rate, and $e$ is the vector of all ones. MDP has following properties.
-\begin{enumerate}
-\item MDP is nondegenerate.
-\item The minimum value of all the positive elements of BFSs is greater than or equal to 1, i.e., $\delta \ge 1$.
-\item he maximum value of all the positive elements of BFSs is less than or equal to $\frac{m}{1-\theta}$, i.e., $\gamma \le \frac{m}{1-\theta}$
-\end{enumerate}
-Therefore, again by Theorem \ref{KTheorem1}, Kitahara and Mizuno \cite{kitahara2013bound} obtained the similar result to Ye \cite{ye2010simplex}
-\begin{corollary}
- The simplex method for solving MDP finds an optimal solution in at most $\lceil m \frac{m^2}{1-\theta}\log(\frac{m^2}{1-\theta})\rceil$ iterations, where $n=2m$.
 \end{corollary}
 
 %\section{title}
