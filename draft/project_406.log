@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.11.5)  16 DEC 2020 10:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.11.5)  16 DEC 2020 10:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -482,24 +482,24 @@ X warning (ext4): destination with the same identifier (name{table.1}) has been
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.84 
-     ]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 109.
+l.77 \[
+       \begin{array}{|c|c|c|c|}]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 99.
 
- (/usr/local/texlive/2019/texmf-dist/tex/latex/base/omscmr.fd
+(/usr/local/texlive/2019/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 109.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 99.
 
-Overfull \hbox (3.90573pt too wide) in paragraph at lines 113--114
+Overfull \hbox (3.90573pt too wide) in paragraph at lines 103--104
 \OT1/cmr/m/n/10.95 be-ing fea-si-ble, i.e., choose $\OML/cmm/m/it/10.95 p \OMS/
 cmsy/m/n/10.95 2 P$ \OT1/cmr/m/n/10.95 where $\OMS/cmsy/m/n/10.95 P \OT1/cmr/m/
 n/10.95 := \OMS/cmsy/m/n/10.95 f[] [][] [] \OT1/cmr/m/n/10.95 :
  []
 
 [3] [4]
-Overfull \hbox (14.64653pt too wide) in paragraph at lines 155--165
+Overfull \hbox (14.64653pt too wide) in paragraph at lines 145--155
 \OT1/cmr/m/n/10.95 the $\OML/cmm/m/it/10.95 j \OT1/cmr/m/n/10.95 := [] [][](\OM
 L/cmm/m/it/10.95 c[]A[]A[] \OMS/cmsy/m/n/10.95 ^^@ \OML/cmm/m/it/10.95 c[]\OT1/
 cmr/m/n/10.95 ) \OMS/cmsy/m/n/10.95 ^^B \OML/cmm/m/it/10.95 t[]$ \OT1/cmr/m/n/1
@@ -507,22 +507,22 @@ cmr/m/n/10.95 ) \OMS/cmsy/m/n/10.95 ^^B \OML/cmm/m/it/10.95 t[]$ \OT1/cmr/m/n/1
  []
 
 [5] [6] [7] [8]
-<klee_cube_d2.png, id=196, 578.16pt x 578.16pt>
+<klee_cube_d2.png, id=191, 578.16pt x 578.16pt>
 File: klee_cube_d2.png Graphic file (type png)
 <use klee_cube_d2.png>
-Package pdftex.def Info: klee_cube_d2.png  used on input line 269.
+Package pdftex.def Info: klee_cube_d2.png  used on input line 259.
 (pdftex.def)             Requested size: 136.80176pt x 136.79393pt.
-<klee_cube_d3.png, id=198, 433.62pt x 289.08pt>
+<klee_cube_d3.png, id=193, 433.62pt x 289.08pt>
 File: klee_cube_d3.png Graphic file (type png)
 <use klee_cube_d3.png>
-Package pdftex.def Info: klee_cube_d3.png  used on input line 270.
+Package pdftex.def Info: klee_cube_d3.png  used on input line 260.
 (pdftex.def)             Requested size: 212.39868pt x 141.60191pt.
  [9pdfTeX warning (ext4): destination with the same identifier (name{figure.1})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.296 B
+l.286 B
        y taking a look at the constraints, the first constraint says that $x...
  <./klee_cube_d2.png> <./klee_cube_d3.png>] [10pdfTeX warning (ext4): destinati
 on with the same identifier (name{table.2}) has been already used, duplicate ig
@@ -530,24 +530,24 @@ nored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.309 \begin{align}
+l.299 \begin{align}
                    ] [11] [12] [13] (./project_406.bbl [14])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 412.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 402.
  [15]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 412.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 402.
 
 (./project_406.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 412.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 412.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 402.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 402.
 Package rerunfilecheck Info: File `project_406.out' has not changed.
-(rerunfilecheck)             Checksum: 023B6E52AF4DA0A60B43578B7664FD49;1765.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 412.
+(rerunfilecheck)             Checksum: 1E3DEA8CBBA5781EF64C4FAD089ACF27;1679.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 402.
  ) 
 Here is how much of TeX's memory you used:
- 8561 strings out of 492616
- 120179 string characters out of 6129481
- 231932 words of memory out of 5000000
- 12271 multiletter control sequences out of 15000+600000
+ 8557 strings out of 492616
+ 120109 string characters out of 6129481
+ 231894 words of memory out of 5000000
+ 12269 multiletter control sequences out of 15000+600000
  12473 words of font info for 47 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  35i,17n,35p,955b,443s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -569,10 +569,10 @@ e/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2
 exmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2019/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2019/tex
 mf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on project_406.pdf (15 pages, 553241 bytes).
+Output written on project_406.pdf (15 pages, 552137 bytes).
 PDF statistics:
- 360 PDF objects out of 1000 (max. 8388607)
- 317 compressed objects within 4 object streams
- 87 named destinations out of 1000 (max. 500000)
- 195 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 355 PDF objects out of 1000 (max. 8388607)
+ 312 compressed objects within 4 object streams
+ 85 named destinations out of 1000 (max. 500000)
+ 187 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -54,15 +54,6 @@ In this paper, we consider the primal Linear optimization (LO) problem of the st
  x \in \Rmbb^n,\ c \in \Rmbb^n,\ &A \in \Rmbb^{m\times n},\ b \in \Rmbb^m   
 \end{split} \label{LOprimal}
 \end{align}
-And the dual problem is 
-\begin{align}
-\begin{split}
-\min_{y,s} \quad &b^Ty\\
-\text{s.t.} \quad &A^Ty + s = c\\
-&s \ge 0\\
- y \in \Rmbb^m&,\ s \in \Rmbb^n   
-\end{split} \label{LOdual}
-\end{align}
 Table \ref{tbnotation} lists notations we will refer in the following part.
 \begin{table}[h]
 \caption{Notation}
@@ -78,11 +69,10 @@ $N$ & set of index of nonbasis solution $x_N$, $|N| = n-m$&  \\
 \end{tabular}
 \end{table}
 
-\section{Pivot algorithms and complexity}
-\subsection{Historical Review}
+\section{Pivot algorithms and pivot rules}
 As we will go on to see in this article, much of our conversation will revolve around advancements in pivoting rules that led to performance increases for pivot algorithms. Before getting there, however, we would like to begin by discussing a few key improvements to other aspects of pivot algorithms that contributed to research focus in this space. We will start by going all the way back to the beginning.
 
-\subsubsection{Dantzig's Simplex Algorithm}
+\subsection{Dantzig's Simplex Algorithm}
 As mentioned in our opening, the major advancement that opened the space of pivot algorithms was the development of the Primal Simplex Algorithm (referred to hereon as Simplex) by Dantzig, and his work will serve as our baseline for the complexity of pivot algorithms as we go on to compare them moving forward. In order to understand the complexity of the algorithm Dantzig proposed, let's take a moment to refresh ourselves on its operations. Although mentioned in greater detail in \cite{dantzig1951maximization}, the important details to recall are as follows. We begin by setting up the following system of equations where the equality exists between the first and second columns:
 \[\begin{array}{|c|c|c|c|}
 	\hline
@@ -115,7 +105,7 @@ Simplex tells us to then pivot through bases until we find one that is either op
 	\end{itemize}
 	\item else, the current solution solves the LO problem.
 \end{itemize} 
-\subsubsection{Criss-cross algorithm}
+\subsection{Criss-cross algorithm}
 The difference between the criss-cross algorithm and simplex method is that criss-cross does not maintain either primal or dual feasibility, and thus omit the ratio test procedure. The similarities is that both simplex method and criss-cross algorithm are pivot algorithms and need some rules to choose the pivot element in each iteration. Such rule is crucial for the complexity and the finiteness of the whole algorithms. 
  
 \subsection{Pivoting rules} \label{secpivotrules}
