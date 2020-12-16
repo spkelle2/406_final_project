@@ -42,10 +42,10 @@ Csizmadia and Illés in 2010 \cite{csizmadia2012s} proved that a general pivot r
 
 Although simplex method was generally efficient in practice, theoretically, Klee and Minty \cite{wikipediacontributors_2020_kleeminty} in 1970s showed the worst case complexity could happen. For a specific type of LP with $n$ variables and $n$ constraints, using the simplex method with Dantzig's rule, the number of iterations is $2^n-1$. We will demonstrate this in section \ref{secworst}.
 
-Kitahara and Mizuno in 2011 \cite{kitahara2013bound} analyzed the complexity of the simplex method with certain pivot rules. They came up with a bound that is a polynomial of $n, m$, and special ratio. Such ratio is some constant in certain LO problems, such as when $A$ is unimodular and $b$ is integral. We showed their analysis \ref{seckita}.
+Kitahara and Mizuno in 2011 \cite{kitahara2013bound} analyzed the complexity of the simplex method with certain pivot rules. They came up with a bound that is a polynomial of $n, m$, and a special ratio when $A$ is unimodular and $b$ is integral. We showed their analysis in section \ref{seckita}.
 
 \section{Notations}
-In this paper, we consider the primal Linear optimization (LO) problem of the standard form
+In this paper, we consider the primal Linear Optimization (LO) problem of the standard form
 \begin{align}
 \begin{split}
 \min_x \quad &c^Tx\\
@@ -54,7 +54,7 @@ In this paper, we consider the primal Linear optimization (LO) problem of the st
  x \in \Rmbb^n,\ c \in \Rmbb^n,\ &A \in \Rmbb^{m\times n},\ b \in \Rmbb^m   
 \end{split} \label{LOprimal}
 \end{align}
-Table \ref{tbnotation} lists notations we will refer in the following part.
+Table \ref{tbnotation} lists notations we will refer back to throughout the paper.
 \begin{table}[h]
 \caption{Notation}
 \label{tbnotation}
@@ -96,14 +96,14 @@ Then with a couple of algebraic operations, we get the following tableau:
 
 Simplex tells us to then pivot through bases until we find one that is either optimal or inconsistent. The pivoting operation for primal simplex method is as following
 \begin{itemize}
-	\item If there is dual infeasible
+	\item If there is dual infeasibility
 	\begin{itemize}
-		\item Find a index from nonbasis, which are dual infeasible, i.e, choose $q \in \Qcal$ where $\Qcal
-		:= \{j \in N: (c_B^T A_B^{-1} A_j -c_j) > 0\}$. If $|\Qcal| = 1$, we just choose the only index, otherwise we make choice by some rules (we talk later). 
-		\item Find a index from basis by ratio test to keep the primal solution being feasible, i.e., choose $p \in \Pcal$ where $\Pcal:=\{\arg \min_{i \in B} \frac{x_i}{(A_B^{-1}A_q)_{i}}: (A_B^{-1}A_q)_{i} >0 \}$.  If $|\Pcal| = 0$, the LO is dual infeasible and primal unbounded, else if $|\Pcal| = 1$, we choose the only index, otherwise we make choice by some rules. 
+		\item Find an index from the nonbasis elements which is dual infeasible, i.e, choose $q \in \Qcal$ where $\Qcal
+		:= \{j \in N: (c_B^T A_B^{-1} A_j -c_j) > 0\}$. If $|\Qcal| = 1$, we just choose the only index, otherwise we make a choice based on some rules we will discuss later. 
+		\item Find an index from the basis by the ratio test to keep the primal solution feasible, i.e., choose $p \in \Pcal$ where $\Pcal:=\{\arg \min_{i \in B} \frac{x_i}{(A_B^{-1}A_q)_{i}}: (A_B^{-1}A_q)_{i} >0 \}$.  If $|\Pcal| = 0$, the LO is dual infeasible and primal unbounded, else if $|\Pcal| = 1$, we choose the only index, otherwise we make choice by some rules we will again discuss later. 
 		\item Perform a pivot: $B:= B \cup \{q\} \backslash \{p\}$, $N:= N \cup \{p\} \backslash \{q\}$.
 	\end{itemize}
-	\item else, the current solution solves the LO problem.
+	\item Else, the current solution solves the LO problem.
 \end{itemize} 
 \subsection{Criss-cross algorithm}
 The difference between the criss-cross algorithm and simplex method is that criss-cross does not maintain either primal or dual feasibility, and thus omit the ratio test procedure. The similarities is that both simplex method and criss-cross algorithm are pivot algorithms and need some rules to choose the pivot element in each iteration. Such rule is crucial for the complexity and the finiteness of the whole algorithms. 
