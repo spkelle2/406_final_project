@@ -106,10 +106,10 @@ Simplex tells us to then pivot through bases until we find one that is either op
 	\item Else, the current solution solves the LO problem.
 \end{itemize} 
 \subsection{Criss-cross algorithm}
-The difference between the criss-cross algorithm and simplex method is that criss-cross does not maintain either primal or dual feasibility, and thus omit the ratio test procedure. The similarities is that both simplex method and criss-cross algorithm are pivot algorithms and need some rules to choose the pivot element in each iteration. Such rule is crucial for the complexity and the finiteness of the whole algorithms. 
+The difference between the criss-cross algorithm and the simplex method is that criss-cross does not maintain primal or dual feasibility and thus omits the ratio test procedure. The similarities are that both the simplex method and criss-cross algorithm are pivot algorithms and need some rules to choose the pivot element in each iteration. Such a rule is crucial for the complexity and the finiteness of both algorithms. 
  
 \subsection{Pivoting rules} \label{secpivotrules}
-From now on, we focus on the simplex method unless otherwise stated. In simplex method, the decision of which nonbasis enter and which basis leaves (if more than one basis satisfy ratio test), is flexible. Thus many pivot rules are designed and we show some of them. 
+From now on, we will focus on the simplex method unless otherwise stated. In the simplex method, the decision of which nonbasis element enter and which basis element leaves (if more than one basis satisfy ratio test) is flexible. Thus many pivot rules have been designed and we will show some of them. 
 \subsubsection{Dantzig's rule}
 To make a pivot, Dantzig said to do the following:
 \begin{itemize}
@@ -141,8 +141,7 @@ It is worth highlighting at this point that \cite{revised} shows Revised Simplex
 
 
 \subsubsection{Best improvement rule}
-
-Also called largest improvement rule and greatest improvement rule. It aims for largest increase in objective value. It will pick the nonbasic variable with the $j := \arg \max_{j\in N}(c_B^T A_B^{-1} A_j - c_j)\times t_j$ where $t_j = \min_{i \in \{B:(A_B^{-1}A_j)_{i} >0\}} \frac{x_i}{(A_B^{-1}A_j)_{i}}$. In other words, the improvement to objective value is the reduced cost times the ratio. And we choose nonbasis that bring largest improvement in this iteration. For example, as in \cite{largest}, the tableau is
+This rule also goes by largest improvement rule or greatest improvement rule. It aims for largest increase in objective value. It will pick the nonbasic variable with index $j := \arg \max_{j\in N}(c_B^T A_B^{-1} A_j - c_j)\times t_j$ where $t_j = \min_{i \in \{B:(A_B^{-1}A_j)_{i} >0\}} \frac{x_i}{(A_B^{-1}A_j)_{i}}$. In other words, the improvement to the objective value is the reduced cost times the ratio, and we choose the nonbasis element that brings the largest improvement in this iteration. For example, as in \cite{largest}, the tableau is
 \begin{table}[h]
 \centering
 \begin{tabular}{cccccc}
@@ -153,30 +152,26 @@ Also called largest improvement rule and greatest improvement rule. It aims for 
 \end{tabular}
 \end{table}
 
-Now $x_1, x_2$ are nonbasis that are dual infeasible. For $x_1$ we can increase it to $t_1 = \min \{\frac{2}{1}, \frac{3}{1}\} = 2$; for $x_2$, $t_2 = \min \{\frac{2}{2}\} = 1$. Since $2t_1 = 4 > 3 = 3t_2$, we choose $x_1$ to enter according to this rule.
-
-Apparently, this rule need more arithmetic operations in each iteration. But it may save number of iterations, which we will talk later.
+Now $x_1, x_2$ are nonbasis elements that are dual infeasible. For $x_1$ we can increase it to $t_1 = \min \{\frac{2}{1}, \frac{3}{1}\} = 2$; for $x_2$, $t_2 = \min \{\frac{2}{2}\} = 1$. Since $2t_1 = 4 > 3 = 3t_2$, we choose $x_1$ to enter according to this rule. Notice this rule needs more arithmetic operations in each iteration, but it may save number of iterations, which we will talk about later.
 
 \subsubsection{Steepest edge rule}
-Similar to Dantzig's rule, but instead of choose the most positive element in the top row, we choose $\max_{j \in N} \frac{c_B^TA_B^{-1}A_j - c_j}{\norm{A_B^{-1}A_j}}$ (normalize reduced cost with the norm of its column).
+This rule builds off Best Improvement, but this time we normalize our reduced cost with respect to the norm of its column. Specifically, we choose $\max_{j \in N} \frac{c_B^TA_B^{-1}A_j - c_j}{\norm{A_B^{-1}A_j}}$.
 
 \subsubsection{Last-in-first-out rule (LIFO)}
-Apart from Bland's rule, this last-in-first-out, plus the following most-often-selected-variable (MOSV) rule are also finite pivot rules. LIFO and MOSV are proposed by Zhang in 1997 \cite{zhang1999new}. LIFO means among the candidates, choose the most recently moved variable. In the first iteration with no selection in the past, we use Bland's rule or Dantzig's rule.
+In addition to Bland's rule, this rule, plus the following most-often-selected-variable (MOSV) rule are also finite pivot rules. LIFO and MOSV are proposed by Zhang in 1997 \cite{zhang1999new}. LIFO means among the candidates, choose the most recently moved variable. In the first iteration with no selection in the past, we use Bland's rule or Dantzig's rule.
 
 \subsubsection{Most-often-selected-variable (MOSV)}
-MOSV rule is to select the variable that has been selected the largest amount of times before, that is the "most often selected". In the first iteration with no selection in the past, we use Bland's rule or Dantzig's rule.
-
-Also, when choice by LIFO (or MOSV) rule is not unique, we use Dantzig's rule. This called Hybrid-LIFO (Hybrid-MOSV) \cite{zhang1999new}.
+MOSV rule is to select the variable that has been selected the largest amount of times before, that is the "most often selected". In the first iteration with no selection in the past, we use Bland's rule or Dantzig's rule. When the choice by LIFO (or MOSV) rule is not unique, we use Dantzig's rule. This is called Hybrid-LIFO (Hybrid-MOSV) \cite{zhang1999new}.
 
 \subsection{S-monotone index selection rules} \label{secsmono}
-Csizmadia and Illés in 2010 \cite{csizmadia2012s} proposed that Bland, LIFO, MOSV pivot rules are s-monotone index selection rules. They provide a explicit definition of s-monotone index selection rules in \cite{csizmadia2012s}. The key steps of s-monotone rule are
+Csizmadia and Illés in 2010 \cite{csizmadia2012s} proposed that Bland, LIFO, MOSV pivot rules are s-monotone index selection rules. They provide a explicit definition of this in \cite{csizmadia2012s}. The key steps of the s-monotone rule are
 \begin{enumerate}
 \item Maintain a sequence of vectors $s_k \in \Ncal^n$, where $k$ is the iteration number. 
-\item At iteration $k$, when selecting index from a couple of candidates (tie in entering or leaving), select the index $j := \arg \max_j s_k^j$, where $j$ is the index of $s_k$.
-\item When finishing pivoting, generate $s_{k+1}$ by $s_{k}$ and specific rules for Bland, LIFO and MOSV (we talk latter). 
+\item At iteration $k$, when selecting index from a couple of candidates (either a tie in the entering or leaving element), select the index $j := \arg \max_j s_k^j$, where $j$ is the index of $s_k$.
+\item When finishing the pivot, generate $s_{k+1}$ by $s_{k}$ and specific rules for Bland, LIFO and MOSV. 
 \item $s_k$ is an nondecreasing vector from $k=0,1,2,\cdots$.
 \end{enumerate}
-We define $i_k, o_k$ are indices of entering variable and leaving variable at iteration $k$. The $s_k$ for Bland, LIFO, MOSV is generated as follows
+We define $i_k, o_k$ as indices of the entering variable and leaving variable respectively at iteration $k$. The $s_k$ for Bland, LIFO, and MOSV is generated as follows
 
 \begin{itemize}
 \item \textbf{Bland}. $s_k = (n, n-1, \cdots, 1)^T$ for all $k$.
@@ -198,7 +193,7 @@ s_{k+1}^i = \left\{
 \end{align*}
 
 \end{itemize}
-Csizmadia and Illés \cite{csizmadia2012s} then proved simplex method (as well as criss-cross) with s-monotone rule is finite algorithm. They also provided guidance of revising other pivot rules to be finite. For example, if we want to apply steepest edge rule but want to be finite, we can make some modification that, 
+Csizmadia and Illés \cite{csizmadia2012s} then proved the simplex method (as well as criss-cross) with s-monotone rule is a finite algorithm. They also provided guidance of revising other pivot rules to be finite. For example, if we want to apply steepest edge rule but want to ensure it is finite, we can make the following modification: 
 \begin{enumerate}
 \item At the beginning, define a sequence $\{p_k\}$ that is strictly increasing.
 \item At iteration $k$, let
